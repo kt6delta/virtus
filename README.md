@@ -27,6 +27,10 @@ Descomprimir o hubicar los archivos de este repositorio en el directorio html de
 Recuerde que si crea una carpeta dento de este directorio, al ingresar desde el navegador no se hace directamente desde `localhost`, debera hacerse desde `localhost/directorio/`
 #### Restaurar Base de Datos
 Ingresar al directorio `db_backup` del repositorio donde se encuetra un respaldo de la base de datos, se debe cargar este respaldo a MySQL(o MariaDB).
+
+Si se presenta el error `collation desconocida: 'utf8mb4_0900_ai_ci'` cuando se este realizando la importacion de la base de datos, esto se debe a diferencias de versiones entre las versiones de MySQL, para solucionarlo se debe abrir el archivo `.sql` con un editor de texto y remplazar el texto `utf8mb4_0900_ai_ci` por `utf8mb4_general_ci`.
+
+
 #### Cambiar configuration.php
 Para que la plataforma funciones en el nuevo ambiente es necesario cambiar algunos datos en el archivo configuration.php. Se debe editar/cambiar lo siguiente:
 ```
