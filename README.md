@@ -4,10 +4,6 @@
 
 Esta plataforma de enseñanza de programacion nace como un proyecto del Grupo de investigación interinstitucional en ambientes virtuales de aprendizaje [VIRTUS](http://grupovirtus.org/sitio/ "VIRTUS"), y nace con la finalidad de desarrollar una plataforma web que permita a los estudiantes mejorar sus habilidades en la programación, teniendo a disposición diferentes líneas de conocimiento. Este conocimiento será creado de manera compartida, es decir que tanto los estudiantes como los profesores interesados en compartir su conocimiento, puedan ir publicando programas de aprendizaje en programación. Será también posible la petición de cursos, comentarios y la comunicación, de esta manera se creará una plataforma de conocimiento compartido.
 
-**Contenido**
-
-[TOC]
-
 ## Requerimientos
 La plataforma estara desarrollado sobre el sistema de gestion de contenidos Joomla 4.1.5, los requisitos para su ejecusion se pueden consultar en [Technical Requirements](https://downloads.joomla.org/technical-requirements "Technical Requirements"), a continuación se señalan requerimientos usados en el desarrollo actual:
 
@@ -26,7 +22,7 @@ Clonar o descargar el repositorio actual.
 Descomprimir o hubicar los archivos de este repositorio en el directorio html de Apache (/var/www/html en linux, o directorio configurado en XAMP en caso de usar este).
 Recuerde que si crea una carpeta dento de este directorio, al ingresar desde el navegador no se hace directamente desde `localhost`, debera hacerse desde `localhost/directorio/`
 #### Restaurar Base de Datos
-Ingresar al directorio `db_backup` del repositorio donde se encuetra un respaldo de la base de datos, se debe cargar este respaldo a MySQL(o MariaDB).
+Ingresar al directorio `db_backup` del repositorio donde se encuetran respaldos de la base de datos, descargar la version con fecha mas reciente y se debe cargar este respaldo a MySQL(o MariaDB).
 
 Si se presenta el error `collation desconocida: 'utf8mb4_0900_ai_ci'` cuando se este realizando la importacion de la base de datos, esto se debe a diferencias de versiones entre las versiones de MySQL, para solucionarlo se debe abrir el archivo `.sql` con un editor de texto y remplazar el texto `utf8mb4_0900_ai_ci` por `utf8mb4_general_ci`.
 
