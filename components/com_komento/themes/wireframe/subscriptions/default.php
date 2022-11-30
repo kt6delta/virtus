@@ -13,6 +13,9 @@ defined('_JEXEC') or die('Unauthorized Access');
 ?>
 <div id="fd">
 	<div id="kt" class="<?php echo $this->config->get('layout_appearance');?> si-theme-<?php echo $this->config->get('layout_accent');?>">
+
+		<?php echo KT::renderModule('stackideas-toolbar'); ?>
+
 		<div class="kt-dashboard" data-kt-subscriptions>
 
 			<form action="<?php echo JRoute::_('index.php');?>" method="post" data-subscriptions-form>

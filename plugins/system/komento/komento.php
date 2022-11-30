@@ -106,10 +106,10 @@ class plgSystemKomento extends JPlugin
 		}
 
 		$jConfig = FH::jconfig();
-		$caching = $jConfig->get('caching');
+		$caching = (int) $jConfig->get('caching');
 
 		// This is to fixed styling not loaded when cache is enabled
-		if ($caching !== '0') {
+		if ($caching !== 0) {
 			KT::initFoundry();
 			KT::initialize();
 		}

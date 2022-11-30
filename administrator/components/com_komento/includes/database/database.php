@@ -181,6 +181,14 @@ class KomentoDatabase
 			return $db->getErrorNum();
 		}
 
+		if (method_exists($db, 'getErrorNumber')) {
+			return $db->getErrorNumber();
+		}
+
+		if (method_exists($db->getConnection(), 'errorCode')) {
+			return $db->getConnection()->errorCode();
+		}
+
 		return $db->getConnection()->errno;
 	}
 

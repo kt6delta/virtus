@@ -20,7 +20,8 @@ defined('_JEXEC') or die('Unauthorized Access');
 			<?php echo $this->fd->html('filter.lists', 'filter_publish', [
 				'all' => 'COM_KOMENTO_ALL_STATUS',
 				'published' => 'COM_KOMENTO_PUBLISHED',
-				'unpublished' => 'COM_KOMENTO_UNPUBLISHED'
+				'unpublished' => 'COM_KOMENTO_UNPUBLISHED',
+				'featured' => 'COM_KOMENTO_FEATURED',
 			], $publishState); ?>
 		<?php } ?>
 

@@ -57,4 +57,19 @@ class KomentoControllerBase extends JControllerLegacy
 
 		return false;
 	}
+
+	/**
+	 * Method to explicitly retrieve the latest token on demand
+	 *
+	 * @since	4.0.5
+	 * @access	public
+	 */
+	public function csrf()
+	{
+		if ($this->doc->getType() == 'ajax') {
+			return $this->ajax->resolve(FH::token());
+		}
+
+		return FH::token();
+	}
 }

@@ -31,12 +31,21 @@ class KomentoLikes
 		static $enabled = null;
 
 		if (is_null($enabled)) {
-
-			// check for the current viewer is the guest user or not
-			// because like button shouldn't show in public
 			$isGuest = JFactory::getUser()->guest;
-			
-			$enabled = $this->config->get('enable_likes') && $this->profile->allow('like_comment') && !$isGuest;
+
+			$enabled = true;
+
+			if (!$this->config->get('enable_likes')) {
+				$enabled = false;
+			}
+
+			if (!$isGuest && !$this->profile->allow('like_comment')) {
+				$enabled = false;
+			}
+
+			if ($isGuest && !$this->config->get('show_likes_to_guest')) {
+				$enabled = false;
+			}
 		}
 
 		return $enabled;

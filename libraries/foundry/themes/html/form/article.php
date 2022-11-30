@@ -11,8 +11,8 @@
 */
 defined('_JEXEC') or die('Unauthorized Access');
 ?>
-<div class="row" data-fd-article="<?php echo $this->fd->getName();?>" data-id="<?php echo $id;?>">
-	<div class="col-lg-10">
+<div class="grid grid-cols-12" data-fd-article="<?php echo $this->fd->getName();?>" data-id="<?php echo $id;?>">
+	<div class="col-span-12">
 		<div class="o-input-group">
 			<?php echo $this->fd->html('form.text', '', $articleTitle, $id . '-placeholder', ['disabled' => true]); ?>
 

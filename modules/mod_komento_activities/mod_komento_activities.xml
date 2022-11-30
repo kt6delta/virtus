@@ -2,12 +2,12 @@
 <extension version="3.0" type="module" client="site" method="upgrade">
 	<name>Komento Activities</name>
 	<author>StackIdeas Sdn Bhd</author>
-	<creationDate>21st July 2022</creationDate>
+	<creationDate>18th October 2022</creationDate>
 	<copyright>Copyright 2009 - 2016 StackIdeas. All rights reserved.</copyright>
 	<license>GPL License</license>
 	<authorEmail>support@stackideas.com</authorEmail>
 	<authorUrl>http://www.stackideas.com</authorUrl>
-	<version>3.0.43</version>
+	<version>3.0.49</version>
 	<description><![CDATA[Display activities in Komento]]></description>
 	<files>
 		<folder>tmpl</folder>

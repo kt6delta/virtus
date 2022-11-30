@@ -45,8 +45,8 @@ defined('_JEXEC') or die('Unauthorized Access');
 					<div class="flex flex-col md:flex-row hover:bg-gray-100 px-xs py-md">
 						<?php echo $this->fd->html('form.label', 'COM_KOMENTO_COMMENT_ARTICLEID', 'cid', '', '', true, ['columns' => 4]); ?>
 
-						<div class="col-md-9">
-							<?php echo $this->fd->html('form.text', 'cid', $comment->cid, 'cid'); ?>
+						<div class="flex-grow">
+							<?php echo $this->fd->html('form.text', 'cid', $comment->cid, 'cid', ['attributes' => 'disabled="disabled"']); ?>
 						</div>
 					</div>
 
@@ -110,7 +110,7 @@ defined('_JEXEC') or die('Unauthorized Access');
 						<?php echo $this->fd->html('form.label', 'COM_KOMENTO_COMMENT_CREATED_DATE', 'created', '', '', true, ['columns' => 4]); ?>
 
 						<div class="flex-grow">
-							<?php echo $this->fd->html('form.datetimepicker', 'created', $comment->getCreatedDate()->format('m/d/Y h:i A'));?>
+							<?php echo $this->fd->html('form.datetimepicker', 'created', $comment->getCreatedDate()->toSql(true));?>
 						</div>
 					</div>
 
@@ -118,7 +118,7 @@ defined('_JEXEC') or die('Unauthorized Access');
 						<?php echo $this->fd->html('form.label', 'COM_KOMENTO_COMMENT_PUBLISHED', 'published', '', '', true, ['columns' => 4]); ?>
 
 						<div class="flex-grow">
-							<?php echo $this->fd->html('form.toggler', 'published', $comment->published, 'published'); ?>
+							<?php echo $this->fd->html('form.toggler', 'published', $isPublished, 'published'); ?>
 						</div>
 					</div>
 

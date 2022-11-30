@@ -1,5 +1,6 @@
 Komento.ready(function($){
 
+
 	$('[data-preview-comment]').on('click', function() {
 		var parent = $(this).parents('[data-comment-wrapper]');
 		var content = parent.find('[data-comment-content]');

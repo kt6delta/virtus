@@ -14,7 +14,7 @@ defined('_JEXEC') or die('Unauthorized Access');
 <div class="grid grid-cols-1 md:grid-cols-12 gap-md">
 	<div class="col-span-1 md:col-span-6 w-auto">
 		<div class="panel">
-			<?php echo $this->fd->html('panel.heading', 'COM_KOMENTO_SETTINGS_ATTACHMENTS_GENERAL'); ?>
+			<?php echo $this->fd->html('panel.heading', 'COM_KOMENTO_SETTINGS_ATTACHMENTS'); ?>
 
 			<div class="panel-body">
 				<?php echo $this->fd->html('settings.toggle', 'upload_enable', 'COM_KOMENTO_SETTINGS_ATTACHMENT_ENABLE'); ?>

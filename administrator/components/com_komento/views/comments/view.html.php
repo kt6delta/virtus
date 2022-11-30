@@ -64,9 +64,7 @@ class KomentoViewComments extends KomentoAdminView
 			$model = KT::model('reports');
 			$comments = $model->getItems();
 			$return = base64_encode('index.php?option=com_komento&view=comments&layout=reports');
-		} 
-
-		if ($layout !== 'reports') {
+		} else {
 			$model = KT::model('comments');
 			$comments = $model->getItems($options);
 		}
@@ -135,6 +133,8 @@ class KomentoViewComments extends KomentoAdminView
 		JToolBarHelper::apply();
 		JToolBarHelper::cancel();
 
+		$isPublished = $comment->isPublished();
+
 		if ($comment->published !== KOMENTO_COMMENT_SPAM && $from !== 'spamlist') {
 			JToolBarHelper::custom('markCommentSpam', 'unpublish', '', JText::_('COM_KOMENTO_MARK_SPAM'), false);
 		}
@@ -169,6 +169,7 @@ class KomentoViewComments extends KomentoAdminView
 		$this->set('cancelLink', $cancelLink);
 		$this->set('comment', $comment);
 		$this->set('return', $return);
+		$this->set('isPublished', $isPublished);
 
 		parent::display('comments/form');
 	}

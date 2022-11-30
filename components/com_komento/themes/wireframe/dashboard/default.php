@@ -13,8 +13,11 @@ defined('_JEXEC') or die('Unauthorized Access');
 ?>
 <div id="fd">
 	<div id="kt" class="<?php echo $this->config->get('layout_appearance');?> si-theme-<?php echo $this->config->get('layout_accent');?>">
+
+		<?php echo KT::renderModule('stackideas-toolbar'); ?>
+
 		<div class="kt-dashboard" data-kt-dashboard>
-			<form action="<?php echo JRoute::_('index.php');?>" method="post" data-dashboard-form>				
+			<form action="<?php echo JRoute::_('index.php');?>" method="post" data-dashboard-form>
 				<?php echo $this->fd->html('snackbar.standard', '<b>' . JText::_('COM_KOMENTO_DASHBOARD_HEADING') . '</b>', function() use ($comments, $showActionBar, $isModerator, $filter, $totalPending, $totalSpams, $totalReports, $canDeleteComment) {
 				ob_start();
 				?>

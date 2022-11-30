@@ -836,6 +836,22 @@ class KT extends KTLegacy
 		return $link;
 	}
 
+	// Method to route standard links (bugged)
+	public static function router()
+	{
+		static $class = null;
+
+		if (is_null($class)) {
+			$path = JPATH_ADMINISTRATOR . '/components/com_komento/includes/router/router.php';
+			include_once($path);
+
+			$class = new KTRouter();
+		}
+
+		return $class;
+
+	}
+
 	/**
 	 * Retrieves an instance of the ajax library
 	 *
@@ -1419,6 +1435,45 @@ class KT extends KTLegacy
 		}
 
 		return $xml;
+	}
+
+
+	/**
+	 * Renders a module in the component
+	 *
+	 * @since	5.0
+	 * @access	public
+	 */
+	public static function renderModule($position, $attributes = array(), $content = null)
+	{
+		static $cache = [];
+
+		if (!isset($cache[$position])) {
+			$cache[$position] = JModuleHelper::getModules($position);
+		}
+
+		jimport('joomla.application.module.helper');
+
+		$modules = $cache[$position];
+		$buffer = '';
+
+		$doc = JFactory::getDocument();
+		$renderer = $doc->loadRenderer('module');
+
+		if ($modules) {
+			foreach ($modules as $module) {
+				// Get the module output
+				$output = $renderer->render($module, $attributes, $content);
+
+				$theme = KT::themes();
+				$theme->set('position', $position);
+				$theme->set('output', $output);
+
+				$buffer .= $theme->output('site/structure/module');
+			}
+		}
+
+		return $buffer;
 	}
 }
 

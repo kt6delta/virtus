@@ -1,7 +1,7 @@
 <?php
 /**
 * @package		Komento
-* @copyright	Copyright (C) Stack Ideas Sdn Bhd. All rights reserved.
+* @copyright	Copyright (C) Stack Ideas Sdn Bhd. All rights reserved. 
 * @license		GNU/GPL, see LICENSE.php
 * Komento is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -399,7 +399,7 @@ class KomentoCommentify
 		$showCaptcha = false;
 
 		if ($this->config->get('antispam_captcha_enable')) {
-			$captchaGroup = $this->config->get('show_captcha');
+			$captchaGroup = $this->config->get('show_captcha', '');
 
 			if (!is_array($captchaGroup)) {
 				$captchaGroup = explode(',', $captchaGroup);

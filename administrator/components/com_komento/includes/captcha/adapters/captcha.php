@@ -28,7 +28,7 @@ class KomentoCaptchaCaptcha extends KomentoBase
 		$theme = KT::themes();
 		$theme->set('id', $table->id);
 		$theme->set('url', $this->getCaptchaUrl($table->id));
-		
+
 		return $theme->output('site/captcha/core/default');
 	}
 

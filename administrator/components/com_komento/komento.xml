@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.0.0" method="upgrade">
 	<name>com_komento</name>
-	<creationDate>21st July 2022</creationDate>
+	<creationDate>18th October 2022</creationDate>
 	<author>Stack Ideas Sdn Bhd</author>
 	<authorEmail>support@stackideas.com</authorEmail>
 	<authorUrl>http://www.stackideas.com</authorUrl>
 	<copyright>Copyright 2009 - 2016 StackIdeas. All rights reserved.</copyright>
 	<license>GPL License</license>
-	<version>4.0.4</version>
+	<version>4.0.6</version>
 	<description>
 		Komento is a Joomla! comment component.
 	</description>

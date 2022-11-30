@@ -12,7 +12,7 @@
 defined('_JEXEC') or die('Unauthorized Access');
 ?>
 <div data-fd-dropdown-wrapper>	
-	<div class="inline" 
+	<div class="inline-block" 
 		data-fd-dropdown
 		data-fd-dropdown-placement="<?php echo $placement;?>" 
 		data-fd-dropdown-trigger="<?php echo $trigger;?>"

@@ -91,7 +91,7 @@ defined('_JEXEC') or die('Unauthorized Access');
 	</td>
 
 	<td class="center">
-		<?php echo $comment->getCreatedDate()->toSql(); ?>
+		<?php echo $comment->getCreatedDate()->format(JText::_('DATE_FORMAT_LC5')); ?>
 	</td>
 
 	<td class="center">

@@ -13,8 +13,8 @@ defined('_JEXEC') or die('Unauthorized Access');
 
 class KomentoTableCaptcha extends KomentoTable
 {
-	public $id = null;
-	public $response = null;
+	public $id = '';
+	public $response = '';
 	public $created = null;
 
 	public function __construct(& $db )

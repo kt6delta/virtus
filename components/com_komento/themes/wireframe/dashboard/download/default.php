@@ -12,7 +12,10 @@
 defined('_JEXEC') or die('Unauthorized Access');
 ?>
 <div id="fd">
-	<div id="kt">
+	<div id="kt" class="<?php echo $this->config->get('layout_appearance');?> si-theme-<?php echo $this->config->get('layout_accent');?>">
+
+		<?php echo KT::renderModule('stackideas-toolbar'); ?>
+
 		<div class="kt-dashboard" data-kt-dashboard>
 			<div class="kt-dashbard-content">
 				<p>

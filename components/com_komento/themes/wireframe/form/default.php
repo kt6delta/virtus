@@ -16,8 +16,9 @@ defined('_JEXEC') or die('Unauthorized Access');
 <div class="kt-form-section " data-kt-form>
 	<a name="commentform" id="commentform" hidden></a>
 
-	<?php echo $this->fd->html('snackbar.standard', '<b>' . JText::_('COM_KOMENTO_FORM_LEAVE_YOUR_COMMENTS') . '</b>'); ?>
-
+	<?php if ($this->my->allow('add_comment')) { ?>
+		<?php echo $this->fd->html('snackbar.standard', '<b>' . JText::_('COM_KOMENTO_FORM_LEAVE_YOUR_COMMENTS') . '</b>'); ?>
+	<?php } ?>
 	<?php if (isset($options['lock']) && $options['lock']) { ?>
 		<?php echo $this->fd->html('layout.box', JText::_('COM_KOMENTO_FORM_LOCKED'), 'fdi fa fa-lock text-gray-500', null, [
 			'rounded' => true

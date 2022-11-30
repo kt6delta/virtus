@@ -37,28 +37,14 @@ class EngageLatestHelper
 		/** @var CommentsModel $model */
 		$model      = $mvcFactory->createModel('Comments', 'Site', ['ignore_request' => true]);
 
+		$model->setState('filter.enabled', 1);
 		$model->setState('filter.frontend', 1);
 		$model->setState('list.ordering', 'c.created');
 		$model->setState('list.direction', 'DESC');
 		$model->setState('list.start', 0);
 		$model->setState('list.limit', $numComments);
 
-		// Comment bodies are converted to plaintext and limited on the number of displayed words
-		return array_map(function (object $comment) use ($maxWords) {
-			$comment->body  = strip_tags($comment->body);
-			$words = str_word_count($comment->body, 2);
-
-			if (count($words) <= $maxWords)
-			{
-				return $comment;
-			}
-
-			$wordPos = array_keys($words);
-			$lastPos = $wordPos[$maxWords] - 1;
-			$comment->body = substr($comment->body, 0, $lastPos) . ' [...]';
-
-			return $comment;
-		}, $model->getItems());
+		return $model->getItems();
 	}
 
 	/**

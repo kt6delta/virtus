@@ -48,6 +48,8 @@ class Avatar extends Base
 		$isMobile = \FH::normalize($options, 'isMobile', false);
 		$showOnlineState = \FH::normalize($options, 'showOnlineState', false);
 		$class = \FH::normalize($options, 'class', '');
+		$fallback = \FH::normalize($options, 'fallback', null);
+		$wrapperAttributes = \FH::normalize($options, 'wrapperAttributes', null);
 
 		// Allow caller to force a style
 		$avatarStyle = \FH::normalize($options, 'style', 'rounded');
@@ -82,6 +84,8 @@ class Avatar extends Base
 		$theme->set('height', $height);
 		$theme->set('isOnline', $isOnline);
 		$theme->set('isMobile', $isMobile);
+		$theme->set('fallback', $fallback);
+		$theme->set('wrapperAttributes', $wrapperAttributes);
 
 		$output = $theme->output('html/avatar/default');
 

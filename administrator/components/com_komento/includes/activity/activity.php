@@ -79,6 +79,11 @@ class KomentoActivity
 
 	public function processEasysocial($action, $comment)
 	{
+		//We only process this for registered users
+		if ($this->my->guest) {
+			return;
+		}
+
 		// Integrate with EasySocial points
 		$easysocial = KT::easysocial();
 		$easysocial->assignPoints($action, $comment, $this->my);

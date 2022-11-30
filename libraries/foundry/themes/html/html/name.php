@@ -16,7 +16,7 @@ defined('_JEXEC') or die('Unauthorized Access');
 <?php } ?>
 
 <?php if (!$useAnchorTag) { ?>
-<span class="fd-name <?php echo $class;?>">
+<span class="fd-name <?php echo $class;?>" <?php echo $attributes;?>>
 <?php } ?>
 
 	<?php echo $name; ?>

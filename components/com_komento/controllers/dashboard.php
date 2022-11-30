@@ -44,7 +44,7 @@ class KomentoControllerDashboard extends KomentoControllerBase
 		$table->created = FH::date()->toSql();
 		$table->store();
 
-		$redirect = JRoute::_('index.php?option=com_komento&view=dashboard&layout=download', false);
+		$redirect = KT::router()->_('index.php?option=com_komento&view=dashboard&layout=download', false);
 		
 		$this->app->enqueueMessage(JText::_('COM_KT_GDPR_REQUEST_DATA_SUCCESS'));
 

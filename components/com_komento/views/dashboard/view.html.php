@@ -72,6 +72,10 @@ class KomentoViewDashboard extends KomentoView
 			$pagination = $model->getPagination();
 		}
 
+		if ($filter) {
+			$pagination->setVar('filter', $filter);
+		}
+
 		$comments = KT::formatter('comment', $comments);
 
 		// Get total number of pending comments
@@ -91,8 +95,9 @@ class KomentoViewDashboard extends KomentoView
 		// determine whether it should appear that action bar on the user dashboard
 		$showActionBar = $isModerator || $canDeleteComment ? true : false;
 
-		$returnURL = base64_encode(JRoute::_('index.php?option=com_komento&view=dashboard&filter=' . $filter, false));
-
+		$url = KT::router()->_('index.php?option=com_komento&view=dashboard&filter=' . $filter, false);
+		$returnURL = base64_encode($url);
+		
 		$this->set('totalReports', $totalReports);
 		$this->set('totalSpams', $totalSpams);
 		$this->set('totalPending', $totalPending);

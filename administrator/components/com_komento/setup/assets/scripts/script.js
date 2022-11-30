@@ -484,24 +484,25 @@ var kt = {
 
 		installToolbar : function() {
 
+			// If this is a free version, we dont install toolbar
 			if (kt.contract === 'free') {
 				kt.installation.syncDB();
+			} else {
+				// Install the toolbar package
+				kt.installation.setActive('data-progress-toolbar');
+
+				kt.ajax('toolbar', {}, function(result) {
+					// Set the progress
+					kt.installation.update('data-progress-toolbar', result, '75%');
+
+					if (!result.state) {
+						kt.installation.showRetry('installToolbar');
+						return false;
+					}
+
+					kt.installation.syncDB();
+				});
 			}
-
-			// Install the toolbar package
-			kt.installation.setActive('data-progress-toolbar');
-
-			kt.ajax('toolbar', {}, function(result) {
-				// Set the progress
-				kt.installation.update('data-progress-toolbar', result, '75%');
-
-				if (!result.state) {
-					kt.installation.showRetry('installToolbar');
-					return false;
-				}
-
-				kt.installation.syncDB();
-			});
 		},
 
 		syncDB: function() {

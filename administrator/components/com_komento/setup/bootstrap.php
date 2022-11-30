@@ -76,7 +76,7 @@ define('SI_TMP', $path . '/tmp');
 define('SI_BETA', false);
 define('SI_KEY', '');
 define('SI_INSTALLER', 'full');
-define('SI_PACKAGE', 'com_komento_4.0.4_component_free.zip');
+define('SI_PACKAGE', 'com_komento_4.0.6_component_free.zip');
 define('SI_CONTRACT', 'free');
 
 // Get the current version

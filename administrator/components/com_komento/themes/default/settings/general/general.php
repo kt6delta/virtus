@@ -25,6 +25,7 @@ defined('_JEXEC') or die('Unauthorized Access');
 				]);?>
 				<?php echo $this->fd->html('settings.toggle', 'enable_report', 'COM_KOMENTO_SETTINGS_REPORT_ENABLE'); ?>
 				<?php echo $this->fd->html('settings.toggle', 'enable_likes', 'COM_KOMENTO_SETTINGS_LIKES_ENABLE'); ?>
+				<?php echo $this->fd->html('settings.toggle', 'show_likes_to_guest', 'COM_KOMENTO_SETTINGS_SHOW_LIKES_TO_GUEST'); ?>
 				<?php echo $this->fd->html('settings.toggle', 'enable_mention', 'COM_KOMENTO_SETTINGS_MENTION_ENABLE'); ?>
 				<?php echo $this->fd->html('settings.toggle', 'enable_ratings', 'COM_KOMENTO_SETTINGS_RATINGS_ENABLE'); ?>
 				<?php echo $this->fd->html('settings.toggle', 'enable_minimize', 'COM_KT_ENABLE_MINIMIZE_COMMENTS'); ?>

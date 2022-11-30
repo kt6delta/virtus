@@ -16,7 +16,7 @@ defined('_JEXEC') or die('Unauthorized Access');
 	<height>200</height>
 	<selectors type="json">
 	{
-		"{closeButton}": "[data-close-button]",
+		"{closeButton}": "[data-cancel-button]",
 		"{submit}": "[data-submit-button]",
 		"{form}": "[data-delete-form]"
 	}

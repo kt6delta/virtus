@@ -52,6 +52,8 @@
       text-decoration: none; }
     #kt .kt-reply-to > * + * {
       margin-left: var(--fd-spacing-xs); }
+  #kt .kt-modules-stackideas-toolbar {
+    margin-bottom: var(--fd-spacing-md); }
   #kt .kt-form-section > :not([hidden]) ~ :not([hidden]) {
     margin-top: var(--fd-spacing-md); }
   #kt .kt-form-section.is-replying {

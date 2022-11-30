@@ -653,12 +653,19 @@ class KomentoModelComments extends KomentoModel
 				$state = KT_COMMENT_SPAM;
 			}
 
-			$queryWhere[] = $this->db->nameQuote('published') . ' = ' . $this->db->quote($state);
+			$queryState = $this->db->nameQuote('published') . ' = ' . $this->db->quote($state);
+
+			if ($publishState === 'featured') {
+				$queryState = $this->db->nameQuote('sticked') . ' = ' . $this->db->quote(1);
+			}
+
+			$queryWhere[] = $queryState;
 		}
 
-		// Exclude spams
+		// Exclude spams and pending
 		if ($publishState === 'all') {
-			$queryWhere[] = $this->db->nameQuote('published') . ' != ' . $this->db->quote(KOMENTO_COMMENT_SPAM);
+			$excludeStates = '(' . KOMENTO_COMMENT_MODERATE . ',' . KOMENTO_COMMENT_SPAM . ')';
+			$queryWhere[] = $this->db->namequote('published') . ' NOT IN ' . $excludeStates;
 		}
 
 		if ($search) {

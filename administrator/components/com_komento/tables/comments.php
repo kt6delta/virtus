@@ -69,6 +69,14 @@ class KomentoTableComments extends KomentoTable
 	{
 		$paramsEncoded = false;
 
+		if (empty($this->ratings)) {
+			$this->ratings = 0;
+		}
+
+		if (empty($this->parent_id)) {
+			$this->parent_id = 0;
+		}
+
 		if (is_object($this->params)) {
 			$this->params = json_encode($this->params);
 

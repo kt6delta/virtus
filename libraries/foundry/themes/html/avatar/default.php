@@ -11,7 +11,7 @@
 */
 defined('_JEXEC') or die('Unauthorized Access');
 ?>
-<div class="o-avatar <?php echo $class;?> <?php echo $style;?>">
+<div class="o-avatar <?php echo $class;?> <?php echo $style;?>" <?php echo $wrapperAttributes; ?>>
 	<div class="o-avatar__mobile"></div>
 
 	<?php if ($useAnchorTag) { ?>
@@ -22,6 +22,7 @@ defined('_JEXEC') or die('Unauthorized Access');
 	<?php } else { ?>
 	<div class="o-avatar__content">
 	<?php } ?>
+		<?php if (!$fallback) { ?>
 		<img src="<?php echo $url; ?>" 
 			alt="<?php echo $this->fd->html('str.escape', $name); ?>"
 			width="<?php echo $width;?>"
@@ -34,6 +35,11 @@ defined('_JEXEC') or die('Unauthorized Access');
 			data-title="<?php echo $this->fd->html('str.escape', $name); ?>"
 			<?php } ?>
 		/>
+		<?php } ?>
+
+		<?php if ($fallback) { ?>
+			<?php echo $fallback; ?>
+		<?php } ?>
 	<?php if ($useAnchorTag) { ?>
 	</a>
 	<?php } else { ?>

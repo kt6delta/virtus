@@ -176,7 +176,7 @@ $indentStyling = $comment->getIndentStyling();
 															data-kt-likes-wrapper
 															data-commentid="<?php echo $comment->id; ?>"
 															data-action="likes">
-															<i class="fdi far fa-thumbs-up fa-fw mr-3xs" data-kt-likes-action data-type="<?php echo $comment->liked ? 'unlike' : 'like'; ?>"></i> 
+															<i class="fdi far fa-thumbs-up fa-fw mr-3xs" <?php echo $this->my->id ? 'data-kt-likes-action' : ''; ?> data-type="<?php echo $comment->liked ? 'unlike' : 'like'; ?>"></i> 
 															<span data-kt-likes-counter><?php echo $comment->likes; ?></span>
 														</a>
 
@@ -212,7 +212,7 @@ $indentStyling = $comment->getIndentStyling();
 															data-kt-dislikes-wrapper
 															data-commentid="<?php echo $comment->id; ?>"
 															data-action="dislikes">
-															<i class="fdi far fa-thumbs-down fa-fw mr-3xs" data-kt-dislikes-action data-type="<?php echo $comment->disliked ? 'removedislike' : 'dislike'; ?>"></i> 
+															<i class="fdi far fa-thumbs-down fa-fw mr-3xs" <?php echo $this->my->id ? 'data-kt-dislikes-action' : ''; ?> data-type="<?php echo $comment->disliked ? 'removedislike' : 'dislike'; ?>"></i> 
 															<span data-kt-dislikes-counter><?php echo $comment->dislikes; ?></span>
 														</a>
 
@@ -244,16 +244,16 @@ $indentStyling = $comment->getIndentStyling();
 
 									</div>
 								</div>
-								<?php if ($this->config->get('enable_ratings') && $comment->ratings) { ?>
-									<div class="flex-shrink-0 pt-md md:pt-no">
-										<div class="kt-ratings-wrap" data-kt-ratings-wrapper>
+								<div class="flex-shrink-0 pt-md md:pt-no">
+									<div class="kt-ratings-wrap" data-kt-ratings-wrapper>
+										<?php if ($this->config->get('enable_ratings') && $comment->ratings) { ?>
 											<?php echo $this->fd->html('rating.item', [
 												'score' => $comment->ratings,
 												'showScore' => true
 											]); ?>
-										</div>
+										<?php }?>
 									</div>
-								<?php }?>
+								</div>
 							</div>
 
 							<?php if ($comment->isFeatured() && $comment->childs > 0) { ?>

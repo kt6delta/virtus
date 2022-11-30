@@ -20,7 +20,7 @@ defined('_JEXEC') or die('Unauthorized Access');
 		<div class="flex-shrink-0">
 			<div class="kt-captcha__form">
 				<div class="kt-captcha__img">
-					<img src="<?php echo $url;?>" data-kt-captcha-image />					
+					<img src="<?php echo $url;?>" data-kt-captcha-image />
 				</div>
 				
 				<div class="kt-captcha__reload">
