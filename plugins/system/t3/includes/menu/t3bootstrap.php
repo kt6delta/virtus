@@ -108,11 +108,6 @@ class T3Bootstrap
 								$item->flink .= '&Itemid=' . $item->id;
 							}
 						}
-                        else
-                        {
-                            if(strpos($item->flink,'Itemid=') === false)
-                                $item->flink .= (strpos($item->flink,'?') === false ? '?' : '&').'Itemid=' . $item->id;
-                        }
 						
 						break;
 				}

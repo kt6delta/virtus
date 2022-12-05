@@ -9,11 +9,7 @@ namespace Akeeba\Component\Engage\Administrator\Service\Html;
 
 use Akeeba\Component\Engage\Administrator\Helper\BBCode;
 use Akeeba\Component\Engage\Administrator\Helper\HtmlFilter;
-use Akeeba\Component\Engage\Administrator\Helper\UserFetcher;
-use DateTimeZone;
-use Exception;
 use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\Helpers\JGrid;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -87,15 +83,12 @@ final class Engage
 	/**
 	 * Create an excerpt of the comment text (maximum 50 words or 350 characters).
 	 *
-	 * @param   string|null  $text           The HTML text to condense
-	 * @param   int          $maxWords       Maximum words to keep
-	 * @param   int          $maxCharacters  Maximum characters to keep
-	 * @param   string       $ellipsis       The text to append to excerpts (not appended if it's the original text).
+	 * @param   string|null  $text
 	 *
 	 * @return  string
 	 * @since   3.0.0
 	 */
-	public function textExcerpt(?string $text, int $maxWords = 50, int $maxCharacters = 350, string $ellipsis = '…'): string
+	public function textExcerpt(?string $text): string
 	{
 		if (empty($text))
 		{
@@ -106,7 +99,7 @@ final class Engage
 		$excerpt = str_replace(["<br/>", "<br />", "</p>"], ["\n", "\n", "\n"], $excerpt);
 		$excerpt = strip_tags($excerpt);
 
-		if (str_word_count($excerpt) <= $maxWords || strlen($excerpt) <= $maxCharacters)
+		if (str_word_count($excerpt) <= 50 || strlen($excerpt) <= 350)
 		{
 			return $text;
 		}
@@ -115,15 +108,15 @@ final class Engage
 		$excerpt = array_filter($excerpt, function ($x) {
 			return !empty($x);
 		});
-		$excerpt = array_slice($excerpt, 0, min($maxWords, count($excerpt)));
+		$excerpt = array_slice($excerpt, 0, min(50, count($excerpt)));
 		$excerpt = implode(' ', $excerpt);
 
-		if (strlen($excerpt) > $maxCharacters)
+		if (strlen($excerpt) > 350)
 		{
-			$excerpt = substr($excerpt, 0, $maxCharacters);
+			$excerpt = substr($excerpt, 0, 350);
 		}
 
-		$excerpt  .= $ellipsis;
+		$excerpt .= '…';
 
 		return nl2br($excerpt);
 	}
@@ -188,30 +181,28 @@ final class Engage
 	 * @see     JHtmlJGrid::state()
 	 * @since   1.6
 	 */
-	public function published(
-		$value, $i, $prefix = '', $enabled = true, $checkbox = 'cb', $publishUp = null, $publishDown = null,
-		$formId = null
+	public static function published($value, $i, $prefix = '', $enabled = true, $checkbox = 'cb', $publishUp = null, $publishDown = null,
+	                                 $formId = null
 	)
 	{
 		if (is_array($prefix))
 		{
-			$options  = $prefix;
-			$enabled  = array_key_exists('enabled', $options) ? $options['enabled'] : $enabled;
+			$options = $prefix;
+			$enabled = array_key_exists('enabled', $options) ? $options['enabled'] : $enabled;
 			$checkbox = array_key_exists('checkbox', $options) ? $options['checkbox'] : $checkbox;
-			$prefix   = array_key_exists('prefix', $options) ? $options['prefix'] : '';
+			$prefix = array_key_exists('prefix', $options) ? $options['prefix'] : '';
 		}
 
 		$states = [
-			1  => ['unpublish', 'JPUBLISHED', 'JLIB_HTML_UNPUBLISH_ITEM', 'JPUBLISHED', true, 'publish', 'publish'],
-			0  => ['publish', 'JUNPUBLISHED', 'JLIB_HTML_PUBLISH_ITEM', 'JUNPUBLISHED', true, 'unpublish', 'unpublish'],
+			1 => ['unpublish', 'JPUBLISHED', 'JLIB_HTML_UNPUBLISH_ITEM', 'JPUBLISHED', true, 'publish', 'publish'],
+			0 => ['publish', 'JUNPUBLISHED', 'JLIB_HTML_PUBLISH_ITEM', 'JUNPUBLISHED', true, 'unpublish', 'unpublish'],
 			-3 => [
 				'reportham', 'COM_ENGAGE_COMMENT_ENABLED_OPT_POSSIBLE_SPAM', 'COM_ENGAGE_COMMENTS_TOOLBAR_REPORTHAM',
 				'COM_ENGAGE_COMMENT_ENABLED_OPT_POSSIBLE_SPAM', true, 'flag text-warning border-warning', 'flag',
 			],
 			-2 => [
 				'reportspam', 'COM_ENGAGE_COMMENT_ENABLED_OPT_SPAM', 'COM_ENGAGE_COMMENTS_TOOLBAR_REPORTSPAM',
-				'COM_ENGAGE_COMMENT_ENABLED_OPT_SPAM', true, 'exclamation-circle text-danger border-danger',
-				'exclamation-circle',
+				'COM_ENGAGE_COMMENT_ENABLED_OPT_SPAM', true, 'exclamation-circle text-danger border-danger', 'exclamation-circle',
 			],
 		];
 
@@ -219,15 +210,15 @@ final class Engage
 		if ($publishUp || $publishDown)
 		{
 			$nullDate = Factory::getDbo()->getNullDate();
-			$nowDate  = Factory::getDate()->toUnix();
+			$nowDate = Factory::getDate()->toUnix();
 
 			$tz = Factory::getUser()->getTimezone();
 
-			$publishUp   = ($publishUp !== null && $publishUp !== $nullDate) ? Factory::getDate($publishUp, 'UTC')->setTimezone($tz) : false;
+			$publishUp = ($publishUp !== null && $publishUp !== $nullDate) ? Factory::getDate($publishUp, 'UTC')->setTimezone($tz) : false;
 			$publishDown = ($publishDown !== null && $publishDown !== $nullDate) ? Factory::getDate($publishDown, 'UTC')->setTimezone($tz) : false;
 
 			// Create tip text, only we have publish up or down settings
-			$tips = [];
+			$tips = array();
 
 			if ($publishUp)
 			{
@@ -272,48 +263,11 @@ final class Engage
 				}
 			}
 
-			return JGrid::state($states, $value, $i, [
-				'prefix' => $prefix, 'translate' => !$tip,
-			], $enabled, true, $checkbox, $formId);
+			return JGrid::state($states, $value, $i, array('prefix' => $prefix, 'translate' => !$tip), $enabled, true, $checkbox, $formId);
 		}
 
 		return JGrid::state($states, $value, $i, $prefix, $enabled, true, $checkbox, $formId);
 	}
-
-	/**
-	 * Format a date. Default is to format as a GMT date in DATE_FORMAT_LC2 format.
-	 *
-	 * @param   string       $date      The date to format.
-	 * @param   string|null  $format    The format to use, default is DATE_FORMAT_LC2
-	 * @param   bool         $local     Display the date in the user's local timezone? Default: true.
-	 * @param   bool         $timezone  Include timezone if $format doesn't do so already? Default: false.
-	 *
-	 * @return  string  The formatted date
-	 * @throws  Exception
-	 * @since   3.0.10
-	 */
-	public function date(?string $date, ?string $format = null, bool $local = true, bool $timezone = false): string
-	{
-		$date   = new Date($date ?? 'now', 'GMT');
-		$format = $format ?: Text::_('DATE_FORMAT_LC2');
-
-		if ($timezone && substr($format, -1) != 'T')
-		{
-			$format .= ' T';
-		}
-
-		if ($local)
-		{
-			$app  = Factory::getApplication();
-			$zone = UserFetcher::getUser()->getParam('timezone', $app->get('offset', 'UTC'));
-			$tz   = new DateTimeZone($zone);
-
-			$date->setTimezone($tz);
-		}
-
-		return $date->format($format, $local);
-	}
-
 
 	/**
 	 * Remove existing rel attributes from all tags

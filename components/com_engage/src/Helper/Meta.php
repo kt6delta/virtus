@@ -126,11 +126,20 @@ final class Meta
 	 * information about the asset IDs they recognize. The results are cached to avoid expensive roundtrips to the
 	 * Joomla plugin event system and the database.
 	 *
+	 * The returned keys are:
+	 *
+	 * * `type`: resource type
+	 * * `title`: display title
+	 * * `category`: display title for the category / parent item of the resource
+	 * * `url`: canonical (frontend) or edit (backend) link for the resource; null if not applicable
+	 * * `published`: is the asset published?
+	 * * `access`: access level for the resource (e.g. article) this asset ID corresponds to; null if it doesn't apply.
+	 * * `parent_access`: access level for the resource's parent (e.g. article category); null if it doesn't apply.
+	 *
 	 * @param   int   $assetId         The asset ID to load
 	 * @param   bool  $loadParameters  Should I also load the asset's parameters?
 	 *
-	 * @return  array{type:string, title:string, category:string, author_name:string, author_email:string, url:string,
-	 *     public_url:string, published:bool, published_on:Date, access:int, parent_access:int, parameters:Registry}
+	 * @return  array
 	 * @since   1.0.0
 	 */
 	public static function getAssetAccessMeta(int $assetId = 0, bool $loadParameters = false): array
@@ -220,7 +229,7 @@ final class Meta
 	 * @param   int   $asset_id   Asset ID
 	 * @param   bool  $asManager  True to take into account unpublished comments
 	 *
-	 * @return  int[]
+	 * @return  array
 	 * @since   1.0.0
 	 */
 	public static function getPaginatedCommentIDsForAsset(int $asset_id, bool $asManager = false): array

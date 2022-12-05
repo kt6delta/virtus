@@ -68,4 +68,3 @@ Cuando estos directorios aparesca como "Writable", sera posible instalar extensi
 
 #### Otras consideraciones
 - Es posible que sea necesario dar permisos al directorio donde se ubique los archivos de la plataforma.
-- En caso de trabajar en un linux, con xampp y joomla solo debe conceder permiso a la carpeta donde esta contenido este proyecto y no a toda la carpeta opt, para evitar errores
