@@ -31,9 +31,9 @@ Si se presenta el error `collation desconocida: 'utf8mb4_0900_ai_ci'` cuando se 
 Para que la plataforma funciones en el nuevo ambiente es necesario cambiar algunos datos en el archivo configuration.php. Se debe editar/cambiar lo siguiente:
 ```
 var $host = 'localhost'; // usually "localhost". If it's different for your server then your hosting provider should be able to tell you that.
-var $user = 'the_db_username';
-var $db = 'the_databasename';
-var $password = 'the_db_password';
+var $user = 'the_db_username';//por defecto se usa root
+var $db = 'the_databasename';//por defecto el nombre es virtus_db
+var $password = 'the_db_password';//por defecto viene vacio
 var $live_site = ''; // is usually empty.
 var $cookie_domain = ''; // Should be empty.
 ```
