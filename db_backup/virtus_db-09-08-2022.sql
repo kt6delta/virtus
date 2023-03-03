@@ -2780,8 +2780,8 @@ CREATE TABLE `virtus_komento_comments` (
   `id` bigint UNSIGNED NOT NULL,
   `component` varchar(255) NOT NULL,
   `cid` varchar(20) NOT NULL,
-  `comment` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `preview` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `comment` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `preview` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `name` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `email` varchar(255) DEFAULT '',
@@ -4277,43 +4277,10 @@ ALTER TABLE `virtus_content_types`
 --
 ALTER TABLE `virtus_engage_comments`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `virtus_engage_comments_asset` (`asset_id`),
-  ADD KEY `virtus_engage_comments_created_on` (`DESC`);
+  ADD KEY `virtus_engage_comments_asset` (`asset_id`);
 
---
--- Indices de la tabla `virtus_engage_unsubscribe`
---
-ALTER TABLE `virtus_engage_unsubscribe`
-  ADD PRIMARY KEY (`asset_id`,`email`(100));
 
---
--- Indices de la tabla `virtus_extensions`
---
-ALTER TABLE `virtus_extensions`
-  ADD PRIMARY KEY (`extension_id`),
-  ADD KEY `element_clientid` (`element`,`client_id`),
-  ADD KEY `element_folder_clientid` (`element`,`folder`,`client_id`),
-  ADD KEY `extension` (`type`,`element`,`folder`,`client_id`);
 
---
--- Indices de la tabla `virtus_fields`
---
-ALTER TABLE `virtus_fields`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idx_checkout` (`checked_out`),
-  ADD KEY `idx_state` (`state`),
-  ADD KEY `idx_created_user_id` (`created_user_id`),
-  ADD KEY `idx_access` (`access`),
-  ADD KEY `idx_context` (`context`(191)),
-  ADD KEY `idx_language` (`language`);
-
---
--- Indices de la tabla `virtus_fields_categories`
---
-ALTER TABLE `virtus_fields_categories`
-  ADD PRIMARY KEY (`field_id`,`category_id`);
-
---
 -- Indices de la tabla `virtus_fields_groups`
 --
 ALTER TABLE `virtus_fields_groups`
@@ -4332,103 +4299,6 @@ ALTER TABLE `virtus_fields_values`
   ADD KEY `idx_field_id` (`field_id`),
   ADD KEY `idx_item_id` (`item_id`(191));
 
---
--- Indices de la tabla `virtus_finder_filters`
---
-ALTER TABLE `virtus_finder_filters`
-  ADD PRIMARY KEY (`filter_id`);
-
---
--- Indices de la tabla `virtus_finder_links`
---
-ALTER TABLE `virtus_finder_links`
-  ADD PRIMARY KEY (`link_id`),
-  ADD KEY `idx_type` (`type_id`),
-  ADD KEY `idx_title` (`title`(100)),
-  ADD KEY `idx_md5` (`md5sum`),
-  ADD KEY `idx_url` (`url`(75)),
-  ADD KEY `idx_language` (`language`),
-  ADD KEY `idx_published_list` (`published`,`state`,`access`,`publish_start_date`,`publish_end_date`,`list_price`),
-  ADD KEY `idx_published_sale` (`published`,`state`,`access`,`publish_start_date`,`publish_end_date`,`sale_price`);
-
---
--- Indices de la tabla `virtus_finder_links_terms`
---
-ALTER TABLE `virtus_finder_links_terms`
-  ADD PRIMARY KEY (`link_id`,`term_id`),
-  ADD KEY `idx_term_weight` (`term_id`,`weight`),
-  ADD KEY `idx_link_term_weight` (`link_id`,`term_id`,`weight`);
-
---
--- Indices de la tabla `virtus_finder_logging`
---
-ALTER TABLE `virtus_finder_logging`
-  ADD PRIMARY KEY (`md5sum`),
-  ADD KEY `searchterm` (`searchterm`(191));
-
---
--- Indices de la tabla `virtus_finder_taxonomy`
---
-ALTER TABLE `virtus_finder_taxonomy`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idx_state` (`state`),
-  ADD KEY `idx_access` (`access`),
-  ADD KEY `idx_path` (`path`(100)),
-  ADD KEY `idx_level` (`level`),
-  ADD KEY `idx_left_right` (`lft`,`rgt`),
-  ADD KEY `idx_alias` (`alias`(100)),
-  ADD KEY `idx_language` (`language`),
-  ADD KEY `idx_parent_published` (`parent_id`,`state`,`access`);
-
---
--- Indices de la tabla `virtus_finder_taxonomy_map`
---
-ALTER TABLE `virtus_finder_taxonomy_map`
-  ADD PRIMARY KEY (`link_id`,`node_id`),
-  ADD KEY `link_id` (`link_id`),
-  ADD KEY `node_id` (`node_id`);
-
---
--- Indices de la tabla `virtus_finder_terms`
---
-ALTER TABLE `virtus_finder_terms`
-  ADD PRIMARY KEY (`term_id`),
-  ADD UNIQUE KEY `idx_term_language` (`term`,`language`),
-  ADD KEY `idx_stem` (`stem`),
-  ADD KEY `idx_term_phrase` (`term`,`phrase`),
-  ADD KEY `idx_stem_phrase` (`stem`,`phrase`),
-  ADD KEY `idx_soundex_phrase` (`soundex`,`phrase`),
-  ADD KEY `idx_language` (`language`);
-
---
--- Indices de la tabla `virtus_finder_terms_common`
---
-ALTER TABLE `virtus_finder_terms_common`
-  ADD UNIQUE KEY `idx_term_language` (`term`,`language`),
-  ADD KEY `idx_lang` (`language`);
-
---
--- Indices de la tabla `virtus_finder_tokens`
---
-ALTER TABLE `virtus_finder_tokens`
-  ADD KEY `idx_word` (`term`),
-  ADD KEY `idx_stem` (`stem`),
-  ADD KEY `idx_context` (`context`),
-  ADD KEY `idx_language` (`language`);
-
---
--- Indices de la tabla `virtus_finder_tokens_aggregate`
---
-ALTER TABLE `virtus_finder_tokens_aggregate`
-  ADD KEY `token` (`term`),
-  ADD KEY `keyword_id` (`term_id`);
-
---
--- Indices de la tabla `virtus_finder_types`
---
-ALTER TABLE `virtus_finder_types`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `title` (`title`);
 
 --
 -- Indices de la tabla `virtus_history`
@@ -4939,79 +4809,21 @@ ALTER TABLE `virtus_content_types`
 --
 ALTER TABLE `virtus_engage_comments`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `virtus_extensions`
---
-ALTER TABLE `virtus_extensions`
-  MODIFY `extension_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=256;
-
---
--- AUTO_INCREMENT de la tabla `virtus_fields`
---
-ALTER TABLE `virtus_fields`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `virtus_fields_groups`
 --
 ALTER TABLE `virtus_fields_groups`
   MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `virtus_finder_filters`
---
-ALTER TABLE `virtus_finder_filters`
-  MODIFY `filter_id` int UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `virtus_finder_links`
---
-ALTER TABLE `virtus_finder_links`
-  MODIFY `link_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
---
--- AUTO_INCREMENT de la tabla `virtus_finder_taxonomy`
---
-ALTER TABLE `virtus_finder_taxonomy`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT de la tabla `virtus_finder_terms`
---
-ALTER TABLE `virtus_finder_terms`
-  MODIFY `term_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1167;
-
---
--- AUTO_INCREMENT de la tabla `virtus_finder_types`
---
-ALTER TABLE `virtus_finder_types`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT de la tabla `virtus_history`
 --
 ALTER TABLE `virtus_history`
   MODIFY `version_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
 --
 -- AUTO_INCREMENT de la tabla `virtus_komento_acl`
 --
 ALTER TABLE `virtus_komento_acl`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT de la tabla `virtus_komento_actions`
---
-ALTER TABLE `virtus_komento_actions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `virtus_komento_activities`
---
-ALTER TABLE `virtus_komento_activities`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT de la tabla `virtus_komento_captcha`
 --
@@ -5019,29 +4831,20 @@ ALTER TABLE `virtus_komento_captcha`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `virtus_komento_comments`
---
-ALTER TABLE `virtus_komento_comments`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT de la tabla `virtus_komento_download`
 --
 ALTER TABLE `virtus_komento_download`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
-
---
+---
 -- AUTO_INCREMENT de la tabla `virtus_komento_hashkeys`
 --
 ALTER TABLE `virtus_komento_hashkeys`
   MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `virtus_komento_languages`
 --
 ALTER TABLE `virtus_komento_languages`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `virtus_komento_mailq`
 --
@@ -5060,24 +4863,16 @@ ALTER TABLE `virtus_komento_migrators`
 ALTER TABLE `virtus_komento_pushq`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT de la tabla `virtus_komento_subscription`
---
-ALTER TABLE `virtus_komento_subscription`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
---
 -- AUTO_INCREMENT de la tabla `virtus_komento_uploads`
 --
 ALTER TABLE `virtus_komento_uploads`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `virtus_languages`
 --
 ALTER TABLE `virtus_languages`
   MODIFY `lang_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT de la tabla `virtus_menu`
 --
@@ -5089,7 +4884,6 @@ ALTER TABLE `virtus_menu`
 --
 ALTER TABLE `virtus_menu_types`
   MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT de la tabla `virtus_messages`
 --
@@ -5113,7 +4907,6 @@ ALTER TABLE `virtus_newsfeeds`
 --
 ALTER TABLE `virtus_overrider`
   MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primary Key';
-
 --
 -- AUTO_INCREMENT de la tabla `virtus_postinstall_messages`
 --
@@ -5137,24 +4930,25 @@ ALTER TABLE `virtus_privacy_requests`
 --
 ALTER TABLE `virtus_redirect_links`
   MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `virtus_scheduler_tasks`
 --
 ALTER TABLE `virtus_scheduler_tasks`
   MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `virtus_tags`
 --
 ALTER TABLE `virtus_tags`
   MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT de la tabla `virtus_template_overrides`
 --
 ALTER TABLE `virtus_template_overrides`
   MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+
+
+
 
 --
 -- AUTO_INCREMENT de la tabla `virtus_template_styles`
@@ -5229,6 +5023,5 @@ ALTER TABLE `virtus_workflow_transitions`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
