@@ -4835,9 +4835,7 @@ ALTER TABLE `virtus_komento_captcha`
 --
 ALTER TABLE `virtus_komento_download`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
----
--- AUTO_INCREMENT de la tabla `virtus_komento_hashkeys`
---
+
 ALTER TABLE `virtus_komento_hashkeys`
   MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
 --
