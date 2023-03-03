@@ -10,11 +10,12 @@ namespace Akeeba\Component\Engage\Site\Controller;
 defined('_JEXEC') or die;
 
 use Akeeba\Component\Engage\Administrator\Controller\CommentController as AdminCommentController;
-use Akeeba\Component\Engage\Administrator\Controller\Mixin\GetRedirectionAware;
-use Akeeba\Component\Engage\Administrator\Controller\Mixin\ReturnURLAware;
-use Akeeba\Component\Engage\Administrator\Controller\Mixin\ReusableModels;
 use Akeeba\Component\Engage\Administrator\Helper\UserFetcher;
+use Akeeba\Component\Engage\Administrator\Mixin\ControllerRedirectionTrait;
+use Akeeba\Component\Engage\Administrator\Mixin\ControllerReturnURLTrait;
+use Akeeba\Component\Engage\Administrator\Mixin\ControllerReusableModelsTrait;
 use Akeeba\Component\Engage\Administrator\Table\CommentTable;
+use Akeeba\Component\Engage\Site\Mixin\ControllerFrontendCommentsTrait;
 use Exception;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
@@ -22,10 +23,10 @@ use RuntimeException;
 
 class CommentController extends AdminCommentController
 {
-	use FrontendCommentsAware;
-	use GetRedirectionAware;
-	use ReturnURLAware;
-	use ReusableModels;
+	use ControllerFrontendCommentsTrait;
+	use ControllerRedirectionTrait;
+	use ControllerReturnURLTrait;
+	use ControllerReusableModelsTrait;
 
 	public function batch($model)
 	{

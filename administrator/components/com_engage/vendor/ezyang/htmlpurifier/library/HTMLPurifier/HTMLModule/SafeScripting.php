@@ -1,9 +1,4 @@
 <?php
-/**
- * @package   AkeebaEngage
- * @copyright Copyright (c)2020-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
- * @license   GNU General Public License version 3, or later
- */
 
 /**
  * A "safe" script module. No inline JS is allowed, and pointed to JS

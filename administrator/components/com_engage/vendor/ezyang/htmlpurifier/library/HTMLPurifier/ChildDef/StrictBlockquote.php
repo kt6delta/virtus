@@ -1,9 +1,4 @@
 <?php
-/**
- * @package   AkeebaEngage
- * @copyright Copyright (c)2020-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
- * @license   GNU General Public License version 3, or later
- */
 
 /**
  * Takes the contents of blockquote when in strict and reformats for validation.

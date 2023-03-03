@@ -1,9 +1,4 @@
 <?php
-/**
- * @package   AkeebaEngage
- * @copyright Copyright (c)2020-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
- * @license   GNU General Public License version 3, or later
- */
 
 /**
  * Experimental HTML5-based parser using Jeroen van der Meer's PH5P library.
@@ -4415,7 +4410,7 @@ class HTML5TreeConstructer
 
         foreach ($token['attr'] as $attr) {
             if (!$el->hasAttribute($attr['name'])) {
-                $el->setAttribute($attr['name'], $attr['value']);
+                $el->setAttribute($attr['name'], (string)$attr['value']);
             }
         }
 

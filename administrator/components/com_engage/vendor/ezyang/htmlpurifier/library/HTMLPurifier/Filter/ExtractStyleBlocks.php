@@ -1,9 +1,4 @@
 <?php
-/**
- * @package   AkeebaEngage
- * @copyright Copyright (c)2020-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
- * @license   GNU General Public License version 3, or later
- */
 
 // why is this a top level function? Because PHP 5.2.0 doesn't seem to
 // understand how to interpret this filter if it's a static method.

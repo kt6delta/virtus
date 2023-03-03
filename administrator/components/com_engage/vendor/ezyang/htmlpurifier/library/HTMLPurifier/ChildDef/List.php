@@ -1,9 +1,4 @@
 <?php
-/**
- * @package   AkeebaEngage
- * @copyright Copyright (c)2020-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
- * @license   GNU General Public License version 3, or later
- */
 
 /**
  * Definition for list containers ul and ol.
@@ -26,6 +21,8 @@ class HTMLPurifier_ChildDef_List extends HTMLPurifier_ChildDef
     // lying a little bit, so that we can handle ul and ol ourselves
     // XXX: This whole business with 'wrap' is all a bit unsatisfactory
     public $elements = array('li' => true, 'ul' => true, 'ol' => true);
+
+    public $whitespace;
 
     /**
      * @param array $children

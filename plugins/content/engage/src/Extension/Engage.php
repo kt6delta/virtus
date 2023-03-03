@@ -13,20 +13,18 @@ namespace Joomla\Plugin\Content\Engage\Extension;
 
 defined('_JEXEC') or die;
 
-use Akeeba\Component\Engage\Administrator\Helper\CacheCleaner;
-use Akeeba\Component\Engage\Administrator\Helper\ComponentParams;
+use Akeeba\Component\Engage\Administrator\Extension\EngageComponent;
+use Akeeba\Component\Engage\Administrator\Helper\LayoutHelper;
 use Akeeba\Component\Engage\Administrator\Helper\UserFetcher;
 use Akeeba\Component\Engage\Administrator\Model\CommentsModel;
+use Akeeba\Component\Engage\Administrator\Service\ComponentParameters;
 use Akeeba\Component\Engage\Site\Helper\Meta;
 use Exception;
-use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Date\Date;
 use Joomla\CMS\Dispatcher\ComponentDispatcherFactory;
 use Joomla\CMS\Document\HtmlDocument;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
-use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\MVC\Factory\MVCFactory;
 use Joomla\CMS\MVC\Factory\MVCFactoryAwareTrait;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
@@ -36,7 +34,7 @@ use Joomla\CMS\Table\Content;
 use Joomla\CMS\Table\Table;
 use Joomla\Component\Categories\Administrator\Model\CategoryModel;
 use Joomla\Component\Content\Administrator\Model\ArticleModel;
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseAwareTrait;
 use Joomla\Event\DispatcherInterface;
 use Joomla\Event\Event;
 use Joomla\Event\SubscriberInterface;
@@ -47,6 +45,7 @@ use Throwable;
 class Engage extends CMSPlugin implements SubscriberInterface
 {
 	use MVCFactoryAwareTrait;
+	use DatabaseAwareTrait;
 
 	/**
 	 * Disallow registering legacy listeners since we use SubscriberInterface
@@ -55,22 +54,6 @@ class Engage extends CMSPlugin implements SubscriberInterface
 	 * @since 3.0.0
 	 */
 	protected $allowLegacyListeners = false;
-
-	/**
-	 * Application object
-	 *
-	 * @var   CMSApplication
-	 * @since 1.0.0
-	 */
-	protected $app;
-
-	/**
-	 * Database driver
-	 *
-	 * @var   DatabaseDriver|null
-	 * @since   1.0.0
-	 */
-	protected $db;
 
 	/**
 	 * A cache of basic article information keyed to the asset ID
@@ -136,10 +119,6 @@ class Engage extends CMSPlugin implements SubscriberInterface
 		$this->setMVCFactory($MVCFactory);
 
 		$this->comDispatcherFactory = $comDispatcherFactory;
-
-		$this->loadLanguage();
-
-		$this->autoCleanSpam();
 	}
 
 	public static function getSubscribedEvents(): array
@@ -174,6 +153,8 @@ class Engage extends CMSPlugin implements SubscriberInterface
 	 */
 	public function onAkeebaEngageGetAssetIDsByTitle(Event $event): void
 	{
+		$this->autoCleanSpam();
+
 		/**
 		 * @var ?string $filter The partial article name to match.
 		 */
@@ -196,7 +177,7 @@ class Engage extends CMSPlugin implements SubscriberInterface
 
 		try
 		{
-			$db    = $this->db;
+			$db    = $this->getDatabase();
 			$query = $db->getQuery(true)
 				->select([$db->qn('asset_id')])
 				->from($db->qn('#__content'))
@@ -252,21 +233,21 @@ class Engage extends CMSPlugin implements SubscriberInterface
 		$nonSefUrl  .= empty($row->language) ? '' : "&lang={$row->language}";
 		$public_url = Route::link('site', sprintf($nonSefUrl, $row->id, $row->catid), false, Route::TLS_IGNORE, true);
 
-		if ($this->app->isClient('site'))
+		if ($this->getApplication()->isClient('site'))
 		{
 			$url = $public_url;
 		}
-		elseif ($this->app->isClient('administrator'))
+		elseif ($this->getApplication()->isClient('administrator'))
 		{
 			$url = 'index.php?option=com_content&task=article.edit&id=' . $row->id;
 		}
 
-		$publishUp = new Date();
-		$db        = $this->db;
+		$publishUp = clone Factory::getDate();
+		$db        = $this->getDatabase();
 
 		if (!empty($row->publish_up) && ($row->publish_up != $db->getNullDate()))
 		{
-			$publishUp = new Date($row->publish_up);
+			$publishUp = Factory::getDate($row->publish_up);
 		}
 
 		$event->setArgument('result', array_merge($result, [
@@ -321,7 +302,7 @@ class Engage extends CMSPlugin implements SubscriberInterface
 		}
 
 		$assetId = $data->asset_id;
-		$db      = $this->db;
+		$db      = $this->getDatabase();
 		$query   = $db->getQuery(true)
 			->delete($db->qn('#__engage_comments'))
 			->where($db->qn('asset_id') . ' = ' . $db->q($assetId));
@@ -356,6 +337,11 @@ class Engage extends CMSPlugin implements SubscriberInterface
 		[$context, $row, $params, $page] = $event->getArguments();
 		$result = $event->getArgument('result', []);
 
+		if (($row->access ?? 0) > 0 && !in_array($row->access, $this->getApplication()->getIdentity()->getAuthorisedViewLevels()))
+		{
+			return;
+		}
+
 		$event->setArgument('result', array_merge($result, [
 			$this->renderCommentCount($params, $row, $context, false) .
 			$this->renderComments($params, $row, $context),
@@ -381,6 +367,11 @@ class Engage extends CMSPlugin implements SubscriberInterface
 		 */
 		[$context, $row, $params, $page] = $event->getArguments();
 		$result = $event->getArgument('result', []);
+
+		if (($row->access ?? 0) > 0 && !in_array($row->access, $this->getApplication()->getIdentity()->getAuthorisedViewLevels()))
+		{
+			return;
+		}
 
 		$event->setArgument('result', array_merge($result, [
 			$this->renderCommentCount($params, $row, $context, true),
@@ -476,6 +467,8 @@ class Engage extends CMSPlugin implements SubscriberInterface
 	 */
 	public function onContentPrepareForm(Event $event): void
 	{
+		$this->loadLanguage();
+
 		/**
 		 * @var   Form   $form The Joomla Form object we are manipulating
 		 * @var   object $data The data assigned to the form.
@@ -492,7 +485,7 @@ class Engage extends CMSPlugin implements SubscriberInterface
 		}
 
 		// Add the registration fields to the form.
-		Form::addFormPath(__DIR__ . '/../..//forms');
+		Form::addFormPath(__DIR__ . '/../../forms');
 		$form->loadFile('engage', false);
 	}
 
@@ -515,10 +508,16 @@ class Engage extends CMSPlugin implements SubscriberInterface
 		 * Sounds a bit too much? Well, this is how Joomla itself does it. For real.
 		 *
 		 * @see ContentModelArticle::cleanCache()
+		 * @var EngageComponent $ext
 		 */
-		CacheCleaner::clearCacheGroups([
-			'com_content',
-		], [0]);
+		$ext = $this->getApplication()
+		            ->bootComponent('com_engage');
+		$ext->getCacheCleanerService()
+		    ->clearGroups(
+			    [
+				    'com_content',
+			    ]
+		    );
 	}
 
 	/**
@@ -543,7 +542,11 @@ class Engage extends CMSPlugin implements SubscriberInterface
 		// I need to run. Save the current timestamp in the component parameters.
 		$cParams->set('spam_lastRun', time());
 
-		ComponentParams::save($cParams);
+		/** @var ComponentParameters $cParamsService */
+		$cParamsService = $this->getApplication()
+			->bootComponent('com_engage')
+			->getComponentParametersService();
+		$cParamsService->save($cParams);
 
 		// Get the model and delete comments. No problem if we fail for any reason.
 		try
@@ -634,7 +637,7 @@ class Engage extends CMSPlugin implements SubscriberInterface
 
 		$this->cachedArticles[$metaKey] = null;
 
-		$db    = $this->db;
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true)
 			->select([
 				$db->qn('id'),
@@ -658,7 +661,7 @@ class Engage extends CMSPlugin implements SubscriberInterface
 		try
 		{
 			/** @var MVCFactoryInterface $factory */
-			$factory = $this->app->bootComponent('com_content')->getMVCFactory();
+			$factory = $this->getApplication()->bootComponent('com_content')->getMVCFactory();
 			/** @var ArticleModel $model */
 			$model = $factory->createModel('Article', 'Administrator');
 
@@ -701,7 +704,7 @@ class Engage extends CMSPlugin implements SubscriberInterface
 			return null;
 		}
 
-		$db    = $this->db;
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true)
 			->select($db->qn('asset_id'))
 			->from($db->qn('#__content'))
@@ -817,7 +820,7 @@ class Engage extends CMSPlugin implements SubscriberInterface
 		$catId = $row->catid;
 
 		/** @var MVCFactoryInterface $factory */
-		$factory = $this->app->bootComponent('com_categories')->getMVCFactory();
+		$factory = $this->getApplication()->bootComponent('com_categories')->getMVCFactory();
 		/** @var CategoryModel $model */
 		$model = $factory->createModel('Category', 'Administrator');
 
@@ -922,14 +925,14 @@ class Engage extends CMSPlugin implements SubscriberInterface
 			return false;
 		}
 
-		$db = $this->db;
+		$db = $this->getDatabase();
 
 		// Do we have a publish up date?
 		if (!empty($row->publish_up) && ($row->publish_up != $db->getNullDate()))
 		{
 			try
 			{
-				$publishUp = new Date($row->publish_up);
+				$publishUp = Factory::getDate($row->publish_up);
 
 				if ($publishUp->toUnix() > time())
 				{
@@ -946,7 +949,7 @@ class Engage extends CMSPlugin implements SubscriberInterface
 		{
 			try
 			{
-				$publishDown = new Date($row->publish_down);
+				$publishDown = Factory::getDate($row->publish_down);
 
 				if ($publishDown->toUnix() < time())
 				{
@@ -1014,7 +1017,7 @@ class Engage extends CMSPlugin implements SubscriberInterface
 		}
 
 		// We need to be in the frontend of the site
-		if (!$this->app->isClient('site'))
+		if (!$this->getApplication()->isClient('site'))
 		{
 			return '';
 		}
@@ -1102,11 +1105,14 @@ class Engage extends CMSPlugin implements SubscriberInterface
 			return '';
 		}
 
+		// Load the CORRECT language on multilingual sites
+		$this->loadLanguage();
+
 		// Use a Layout file to display the appropriate summary
 		$basePath    = __DIR__ . '/../../layouts';
 		$layoutFile  = sprintf("akeeba.engage.content.%s", $area);
 		$displayData = [
-			'app'   => $this->app,
+			'app'   => $this->getApplication(),
 			'model' => $this->getMVCFactory()->createModel('Comments', 'Administrator', ['ignore_request' => true]),
 			'row'   => $row,
 			'meta'  => Meta::getAssetAccessMeta($row->asset_id),
@@ -1131,7 +1137,7 @@ class Engage extends CMSPlugin implements SubscriberInterface
 		}
 
 		// We need to be in the frontend of the site
-		if (!$this->app->isClient('site'))
+		if (!$this->getApplication()->isClient('site'))
 		{
 			return '';
 		}
@@ -1187,7 +1193,7 @@ class Engage extends CMSPlugin implements SubscriberInterface
 			return '';
 		}
 
-		$input   = new Input($this->app->input->getArray());
+		$input   = new Input($this->getApplication()->input->getArray());
 		$assetId = $row->asset_id;
 
 		$input->set('option', 'com_engage');
@@ -1211,7 +1217,7 @@ class Engage extends CMSPlugin implements SubscriberInterface
 
 			$doc->getWebAssetManager()->getRegistry()->addRegistryFile('media/com_engage/joomla.asset.json');
 
-			$this->comDispatcherFactory->createDispatcher($this->app, $input)->setUseErrorHandler($debug)->dispatch();
+			$this->comDispatcherFactory->createDispatcher($this->getApplication(), $input)->setUseErrorHandler($debug)->dispatch();
 
 			$comments = @ob_get_contents();
 		}

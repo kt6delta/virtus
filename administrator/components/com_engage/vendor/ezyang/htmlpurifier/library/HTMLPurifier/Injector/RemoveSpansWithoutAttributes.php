@@ -1,9 +1,4 @@
 <?php
-/**
- * @package   AkeebaEngage
- * @copyright Copyright (c)2020-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
- * @license   GNU General Public License version 3, or later
- */
 
 /**
  * Injector that removes spans with no attributes
@@ -35,6 +30,16 @@ class HTMLPurifier_Injector_RemoveSpansWithoutAttributes extends HTMLPurifier_In
      * @type HTMLPurifier_Context
      */
     private $context;
+
+    /**
+     * @type SplObjectStorage
+     */
+    private $markForDeletion;
+
+    public function __construct()
+    {
+        $this->markForDeletion = new SplObjectStorage();
+    }
 
     public function prepare($config, $context)
     {
@@ -69,7 +74,7 @@ class HTMLPurifier_Injector_RemoveSpansWithoutAttributes extends HTMLPurifier_In
 
         if ($current instanceof HTMLPurifier_Token_End && $current->name === 'span') {
             // Mark closing span tag for deletion
-            $current->markForDeletion = true;
+            $this->markForDeletion->attach($current);
             // Delete open span tag
             $token = false;
         }
@@ -80,7 +85,8 @@ class HTMLPurifier_Injector_RemoveSpansWithoutAttributes extends HTMLPurifier_In
      */
     public function handleEnd(&$token)
     {
-        if ($token->markForDeletion) {
+        if ($this->markForDeletion->contains($token)) {
+            $this->markForDeletion->detach($token);
             $token = false;
         }
     }

@@ -10,11 +10,12 @@ namespace Akeeba\Component\Engage\Site\Controller;
 defined('_JEXEC') or die;
 
 use Akeeba\Component\Engage\Administrator\Controller\CommentsController as AdminCommentsController;
-use Akeeba\Component\Engage\Administrator\Controller\Mixin\GetRedirectionAware;
-use Akeeba\Component\Engage\Administrator\Controller\Mixin\ReturnURLAware;
-use Akeeba\Component\Engage\Administrator\Controller\Mixin\ReusableModels;
 use Akeeba\Component\Engage\Administrator\Helper\UserFetcher;
+use Akeeba\Component\Engage\Administrator\Mixin\ControllerRedirectionTrait;
+use Akeeba\Component\Engage\Administrator\Mixin\ControllerReturnURLTrait;
+use Akeeba\Component\Engage\Administrator\Mixin\ControllerReusableModelsTrait;
 use Akeeba\Component\Engage\Administrator\Table\CommentTable;
+use Akeeba\Component\Engage\Site\Mixin\ControllerFrontendCommentsTrait;
 use Akeeba\Component\Engage\Site\Model\CommentsModel;
 use Akeeba\Component\Engage\Site\View\Comments\HtmlView;
 use Exception;
@@ -23,7 +24,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\MVC\View\ViewInterface;
-use Joomla\CMS\Uri\Uri;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Plugin\Content\Engage\Extension\Engage;
 use Joomla\Utilities\ArrayHelper;
@@ -31,13 +31,13 @@ use RuntimeException;
 
 class CommentsController extends AdminCommentsController
 {
-	use FrontendCommentsAware;
-	use GetRedirectionAware;
-	use ReturnURLAware;
-	use ReusableModels
+	use ControllerFrontendCommentsTrait;
+	use ControllerRedirectionTrait;
+	use ControllerReturnURLTrait;
+	use ControllerReusableModelsTrait
 	{
-		ReusableModels::getModel as reusableGetModel;
-		ReusableModels::getView as reusableGetView;
+		ControllerReusableModelsTrait::getModel as reusableGetModel;
+		ControllerReusableModelsTrait::getView as reusableGetView;
 	}
 
 	/**
@@ -350,7 +350,7 @@ class CommentsController extends AdminCommentsController
 		$defaultLimit = $this->getDefaultListLimit();
 		$start        = $this->app->getUserStateFromRequest('com_engage.comments.limitstart', 'akengage_limitstart', 0);
 		$limit        = $this->app->getUserStateFromRequest('com_engage.comments.limit', 'akengage_limit', $defaultLimit);
-		$ordering     = $this->input->get('akengage_order', 'id');
+		$ordering     = $this->input->get('akengage_order', 'c.created');
 		$orderDir     = strtoupper($this->input->get('akengage_order_Dir', 'DESC') ?: 'DESC');
 		$orderDir     = in_array($orderDir, ['ASC', 'DESC']) ? $orderDir : 'DESC';
 

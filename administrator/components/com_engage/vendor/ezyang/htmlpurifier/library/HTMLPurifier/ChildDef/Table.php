@@ -1,9 +1,4 @@
 <?php
-/**
- * @package   AkeebaEngage
- * @copyright Copyright (c)2020-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
- * @license   GNU General Public License version 3, or later
- */
 
 /**
  * Definition for tables.  The general idea is to extract out all of the
@@ -169,7 +164,7 @@ class HTMLPurifier_ChildDef_Table extends HTMLPurifier_ChildDef
             }
         }
 
-        if (empty($content)) {
+        if (empty($content) && $thead === false && $tfoot === false) {
             return false;
         }
 

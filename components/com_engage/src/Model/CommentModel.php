@@ -272,7 +272,7 @@ class CommentModel extends AdminCommentModel
 		$cParams = ComponentHelper::getParams('com_engage');
 
 		// Set the created and modified information
-		$date               = Factory::getDate();
+		$date               = clone Factory::getDate();
 		$table->created     = $date->toSql();
 		$table->created_by  = $user->guest ? null : $user->id;
 		$table->modified_by = null;
@@ -285,13 +285,23 @@ class CommentModel extends AdminCommentModel
 			$table->email      = null;
 		}
 
+		// Get the asset meta
+		if (empty($table->asset_id ?? null))
+		{
+			return;
+		}
+
 		/**
 		 * Set the publish state.
 		 *
 		 * Managers have their comments always published (they can publish their own comments, so why add an unnecessary
 		 * step?). Regular users' comments may be published or not, depending on the component's default_publish option.
 		 */
-		$table->enabled = ($user->authorise('core.manage', 'com_engage') || $cParams->get('default_publish', 1)) ? 1 : 0;
+		$assetMeta      = Meta::getAssetAccessMeta($table->asset_id, true);
+		$defaultPublish = $assetMeta['parameters']->get('default_publish', -1) == -1
+			? $cParams->get('default_publish', 1)
+			: $assetMeta['parameters']->get('default_publish');
+		$table->enabled = ($defaultPublish || $user->authorise('core.manage', 'com_engage')) ? 1 : 0;
 
 		// Spam check. Possible spam is marked with publish status -3. Definite spam just doesn't post at all!
 		PluginHelper::importPlugin('engage');

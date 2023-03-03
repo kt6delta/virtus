@@ -20,16 +20,14 @@ use Exception;
 use HTMLPurifier;
 use HTMLPurifier_Config;
 use Joomla\CMS\Access\Access;
-use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Application\WebApplication;
-use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\User\User;
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseAwareTrait;
 use Joomla\Database\ParameterType;
 use Joomla\Event\Event;
 use Joomla\Event\SubscriberInterface;
@@ -38,6 +36,8 @@ defined('_JEXEC') or die;
 
 class Email extends CMSPlugin implements SubscriberInterface
 {
+	use DatabaseAwareTrait;
+
 	/**
 	 * Disallow registering legacy listeners since we use SubscriberInterface
 	 *
@@ -45,22 +45,6 @@ class Email extends CMSPlugin implements SubscriberInterface
 	 * @since 3.0.0
 	 */
 	protected $allowLegacyListeners = false;
-
-	/**
-	 * The application we are running in.
-	 *
-	 * @var   CMSApplication
-	 * @since 3.0.0
-	 */
-	protected $app;
-
-	/**
-	 * The application's database driver object
-	 *
-	 * @var   DatabaseDriver
-	 * @since 3.0.0
-	 */
-	protected $db;
 
 	/**
 	 * Returns an array of events this subscriber will listen to.
@@ -90,7 +74,7 @@ class Email extends CMSPlugin implements SubscriberInterface
 		[$comment] = $event->getArguments();
 
 		// No emails in non-web applications, please
-		if (!($this->app instanceof WebApplication))
+		if (!($this->getApplication() instanceof WebApplication))
 		{
 			return;
 		}
@@ -162,7 +146,7 @@ class Email extends CMSPlugin implements SubscriberInterface
 	protected function getCommentManagerGroups(): array
 	{
 		// Get all groups
-		$db    = $this->db;
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true)
 			->select([$db->qn('id')])
 			->from($db->qn('#__usergroups'));
@@ -243,7 +227,7 @@ class Email extends CMSPlugin implements SubscriberInterface
 	 */
 	protected function getUnsubscribedEmails(int $asset_id): array
 	{
-		$db    = $this->db;
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true)
 			->select($db->quoteName('email'))
 			->from($db->quoteName('#__engage_unsubscribe'))
@@ -263,7 +247,7 @@ class Email extends CMSPlugin implements SubscriberInterface
 	 */
 	protected function getUserIDsByEmail(array $emails): array
 	{
-		$db     = $this->db;
+		$db     = $this->getDatabase();
 		$emails = array_map([$db, 'q'], $emails);
 		$query  = $db->getQuery(true)
 			->select([
@@ -384,15 +368,15 @@ class Email extends CMSPlugin implements SubscriberInterface
 
 		$data = [
 			'SITEURL'           => Uri::base(),
-			'SITENAME'          => $this->app->get('sitename', 'A Joomla! site'),
-			'NAME'              => htmlentities($commentUser->name),
-			'EMAIL'             => htmlentities($commentUser->email),
-			'IP'                => htmlentities($comment->ip),
-			'USER_AGENT'        => htmlentities($comment->user_agent),
+			'SITENAME'          => $this->getApplication()->get('sitename', 'A Joomla! site'),
+			'NAME'              => strip_tags($commentUser->name),
+			'EMAIL'             => strip_tags($commentUser->email),
+			'IP'                => strip_tags($comment->ip),
+			'USER_AGENT'        => strip_tags($comment->user_agent),
 			'CONTENT_LINK'      => $meta['public_url'],
 			'COMMENT_LINK'      => $publicUri->toString(),
-			'CONTENT_TITLE'     => htmlentities($meta['title']),
-			'CONTENT_CATEGORY'  => htmlentities($meta['category']),
+			'CONTENT_TITLE'     => strip_tags($meta['title']),
+			'CONTENT_CATEGORY'  => strip_tags($meta['category']),
 			'AVATAR_URL'        => $avatarUrl,
 			'COMMENT_SANITIZED' => $processedComment,
 			'COMMENT_PLAINTEXT' => $plainTextConverter->getText(),
@@ -429,22 +413,22 @@ class Email extends CMSPlugin implements SubscriberInterface
 			// Get the localised “created on” date
 			try
 			{
-				$tz = new DateTimeZone($recipient->getParam('timezone', $this->app->get('offset', 'UTC')));
+				$tz = new DateTimeZone($recipient->getParam('timezone', $this->getApplication()->get('offset', 'UTC')));
 			}
 			catch (Exception $e)
 			{
 				$tz = new DateTimeZone('UTC');
 			}
 
-			$jCreatedOn = new Date($comment->created);
+			$jCreatedOn = Factory::getDate($comment->created);
 			$jCreatedOn->setTimezone($tz);
 
 			// Try to send an email
 			try
 			{
 				TemplateEmails::sendMail($type, array_merge($data, [
-					'RECIPIENT_NAME'   => htmlentities($recipient->name),
-					'RECIPIENT_EMAIL'  => htmlentities($recipient->email),
+					'RECIPIENT_NAME'   => strip_tags($recipient->name),
+					'RECIPIENT_EMAIL'  => strip_tags($recipient->email),
 					'DATE_LOCAL'       => $jCreatedOn->format($dateFormat, true),
 					'PUBLISH_URL'      => SignedURL::getAbsoluteSignedURL(sprintf($protoUrl, 'comments.publish', urlencode($returnUrlComment)), $comment, $recipient->email),
 					'UNPUBLISH_URL'    => SignedURL::getAbsoluteSignedURL(sprintf($protoUrl, 'comments.unpublish', urlencode($returnUrl)), $comment, $recipient->email),

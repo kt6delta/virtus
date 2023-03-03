@@ -1,9 +1,4 @@
 <?php
-/**
- * @package   AkeebaEngage
- * @copyright Copyright (c)2020-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
- * @license   GNU General Public License version 3, or later
- */
 
 class HTMLPurifier_HTMLModule_CommonAttributes extends HTMLPurifier_HTMLModule
 {
@@ -22,6 +17,7 @@ class HTMLPurifier_HTMLModule_CommonAttributes extends HTMLPurifier_HTMLModule
             'class' => 'Class',
             'id' => 'ID',
             'title' => 'CDATA',
+            'contenteditable' => 'ContentEditable',
         ),
         'Lang' => array(),
         'I18N' => array(

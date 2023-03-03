@@ -18,6 +18,7 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Database\ParameterType;
 use SimpleXMLElement;
 
+#[\AllowDynamicProperties]
 class UpdatesModel extends BaseDatabaseModel
 {
 	protected $extensionKey = 'pkg_engage';
@@ -75,7 +76,7 @@ class UpdatesModel extends BaseDatabaseModel
 		}
 
 		// Find the extension ID
-		$db    = $this->getDbo();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true)
 			->select('*')
 			->from($db->qn('#__extensions'))
@@ -145,7 +146,7 @@ class UpdatesModel extends BaseDatabaseModel
 	 */
 	public function getUpdateSiteIds(): array
 	{
-		$db    = $this->getDbo();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true)
 			->select($db->qn('update_site_id'))
 			->from($db->qn('#__update_sites_extensions'))
@@ -172,7 +173,7 @@ class UpdatesModel extends BaseDatabaseModel
 	public function getUpdateSites(): ?array
 	{
 		$updateSiteIDs = $this->getUpdateSiteIds();
-		$db            = $this->getDbo();
+		$db            = $this->getDatabase();
 		$query         = $db->getQuery(true)
 			->select('*')
 			->from($db->qn('#__update_sites'))
@@ -230,7 +231,7 @@ class UpdatesModel extends BaseDatabaseModel
 		];
 
 		// Get a reference to the db driver
-		$db = $this->getDbo();
+		$db = $this->getDatabase();
 
 		// Get the update sites for our extension
 		$updateSiteIds = $this->getUpdateSiteIds();
@@ -466,7 +467,7 @@ class UpdatesModel extends BaseDatabaseModel
 	private function createFakePackageExtension()
 	{
 		/** @var DatabaseDriver $db */
-		$db = $this->getDbo();
+		$db = $this->getDatabase();
 
 		$manifestCacheJson = json_encode([
 			'name'         => 'Akeeba Engage package',
@@ -518,7 +519,7 @@ class UpdatesModel extends BaseDatabaseModel
 
 		$content = <<< XML
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="4.0.0" type="package" method="upgrade">
+<extension type="package" method="upgrade">
     <name>pkg_engage</name>
     <version>{$this->version}</version>
     <creationDate>$date</creationDate>
@@ -596,7 +597,7 @@ XML;
 	 */
 	private function findExtensionId(string $element, string $type = 'component', ?string $folder = null): int
 	{
-		$db    = $this->getDbo();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true)
 			->select($db->qn('extension_id'))
 			->from($db->qn('#__extensions'))

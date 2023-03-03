@@ -9,8 +9,8 @@ namespace Akeeba\Component\Engage\Administrator\View\Comment;
 
 defined('_JEXEC') or die;
 
+use Akeeba\Component\Engage\Administrator\Mixin\ViewLoadAnyTemplateTrait;
 use Akeeba\Component\Engage\Administrator\Model\CommentModel;
-use Akeeba\Component\Engage\Administrator\View\Mixin\LoadAnyTemplate;
 use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
@@ -26,7 +26,7 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
  */
 class HtmlView extends BaseHtmlView
 {
-	use LoadAnyTemplate;
+	use ViewLoadAnyTemplateTrait;
 
 	/**
 	 * The Form object
@@ -98,14 +98,8 @@ class HtmlView extends BaseHtmlView
 			'icon-engage'
 		);
 
-		$toolbarButtons   = [];
-		$toolbarButtons[] = ['save', 'comment.save'];
-		$toolbarButtons[] = ['apply', 'comment.apply'];
-
-		ToolbarHelper::saveGroup(
-			$toolbarButtons,
-			'btn-success'
-		);
+		ToolbarHelper::apply('comment.save');
+		ToolbarHelper::save('comment.apply');
 
 		ToolbarHelper::cancel('comment.cancel', 'JTOOLBAR_CLOSE');
 	}

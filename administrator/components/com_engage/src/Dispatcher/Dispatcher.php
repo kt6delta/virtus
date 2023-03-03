@@ -9,7 +9,7 @@ namespace Akeeba\Component\Engage\Administrator\Dispatcher;
 
 defined('_JEXEC') or die;
 
-use Akeeba\Component\Engage\Administrator\Controller\Mixin\TriggerEvent;
+use Akeeba\Component\Engage\Administrator\Mixin\TriggerEventTrait;
 use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Dispatcher\ComponentDispatcher;
 use Joomla\CMS\Document\HtmlDocument;
@@ -17,7 +17,7 @@ use Throwable;
 
 class Dispatcher extends ComponentDispatcher
 {
-	use TriggerEvent;
+	use TriggerEventTrait;
 
 	/**
 	 * Keys of common media files to load.
@@ -59,13 +59,13 @@ class Dispatcher extends ComponentDispatcher
 	public function dispatch()
 	{
 		// Check the minimum supported PHP version
-		$minPHPVersion = '7.2.0';
+		$minPHPVersion = '7.4.0';
 		$softwareName  = 'Akeeba Engage';
 		$silentResults = $this->app->isClient('site');
 
-		if (!@include_once JPATH_ADMINISTRATOR . '/components/com_engage/tmpl/common/wrongphp.php')
+		if (version_compare(PHP_VERSION, $minPHPVersion, 'lt'))
 		{
-			return;
+			die(sprintf('%s requires PHP %s or later.', $softwareName, $minPHPVersion));
 		}
 
 		try

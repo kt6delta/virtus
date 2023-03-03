@@ -1,9 +1,4 @@
 <?php
-/**
- * @package   AkeebaEngage
- * @copyright Copyright (c)2020-2021 Nicholas K. Dionysopoulos / Akeeba Ltd
- * @license   GNU General Public License version 3, or later
- */
 
 /**
  * Post-transform that performs validation to the name attribute; if
@@ -12,6 +7,11 @@
  */
 class HTMLPurifier_AttrTransform_NameSync extends HTMLPurifier_AttrTransform
 {
+
+    /**
+     * @type HTMLPurifier_AttrDef_HTML_ID
+     */
+    public $idDef;
 
     public function __construct()
     {

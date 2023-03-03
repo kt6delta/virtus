@@ -10,10 +10,9 @@ namespace Akeeba\Component\Engage\Administrator\Model;
 defined('_JEXEC') or die;
 
 use Akeeba\Component\Engage\Administrator\Helper\Timer;
-use Akeeba\Component\Engage\Administrator\Model\Mixin\PopulateStateAware;
+use Akeeba\Component\Engage\Administrator\Mixin\ModelPopulateStateTrait;
 use DateInterval;
 use Exception;
-use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
@@ -26,9 +25,10 @@ use Joomla\Database\ParameterType;
  *
  * @since 3.0.0
  */
+#[\AllowDynamicProperties]
 class CommentsModel extends ListModel
 {
-	use PopulateStateAware;
+	use ModelPopulateStateTrait;
 
 	/**
 	 * The number of tree-aware comments fetched by commentIDTreeSliceWithDepth
@@ -118,7 +118,7 @@ class CommentsModel extends ListModel
 		}
 
 		// Get the comments with the IDs specified. They are NOT in order.
-		$db = $this->getDbo();
+		$db = $this->getDatabase();
 		$query = $this->getListQuery()
 			->whereIn($db->quoteName('c.id'), array_map('trim', array_keys($idsAndDepth)))
 			->clear('order');
@@ -206,7 +206,7 @@ class CommentsModel extends ListModel
 	public function commentIDTreeSliceWithDepth(int $start, ?int $limit = null): array
 	{
 		// Get all the IDs filtered by the model
-		$db     = $this->getDbo();
+		$db     = $this->getDatabase();
 		$query  = $this->getListQuery(true)
 			->clear('select')
 			->select([
@@ -271,13 +271,6 @@ class CommentsModel extends ListModel
 			return [];
 		}
 
-		$orderDirn = $this->state->get('list.direction', 'DESC');
-
-		if (is_null($parentId) && strtoupper($orderDirn) === 'DESC')
-		{
-			$childIDs = array_reverse($childIDs);
-		}
-
 		$ret = [];
 
 		foreach ($childIDs as $thisParentId)
@@ -336,7 +329,7 @@ class CommentsModel extends ListModel
 		try
 		{
 			$interval     = new DateInterval(sprintf('P%uD', $maxDays));
-			$earliestDate = (new Date())->sub($interval);
+			$earliestDate = (clone Factory::getDate())->sub($interval);
 		}
 		catch (Exception $e)
 		{
@@ -388,7 +381,7 @@ class CommentsModel extends ListModel
 	 */
 	protected function getListQuery()
 	{
-		$db    = $this->getDbo();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true)
 			->select([
 				$db->quoteName('c') . '.*',
@@ -556,7 +549,7 @@ class CommentsModel extends ListModel
 		// -- Convert to Joomla date objects
 		try
 		{
-			$fltFrom = $fltFrom ? new Date($fltFrom) : null;
+			$fltFrom = $fltFrom ? Factory::getDate($fltFrom) : null;
 		}
 		catch (Exception $e)
 		{
@@ -565,7 +558,7 @@ class CommentsModel extends ListModel
 
 		try
 		{
-			$fltTo = $fltFrom ? new Date($fltTo) : null;
+			$fltTo = $fltFrom ? Factory::getDate($fltTo) : null;
 		}
 		catch (Exception $e)
 		{
@@ -605,7 +598,7 @@ class CommentsModel extends ListModel
 		// List ordering clause
 		$orderCol  = $this->state->get('list.ordering', 'c.created');
 		$orderDirn = $this->state->get('list.direction', 'DESC');
-		$ordering  = $db->escape($orderCol) . ' ' . $db->escape($orderDirn);
+		$ordering  = $db->quoteName($orderCol) . ' ' . $db->escape($orderDirn);
 
 		/**
 		 * -- When ordering by a column other that the comment ID apply an additional ordering to make sure that the
@@ -615,7 +608,7 @@ class CommentsModel extends ListModel
 		 */
 		if ($orderCol != 'c.id')
 		{
-			$ordering .= ', c.id DESC';
+			$ordering .= ', ' . $db->quoteName('c.id') . ' DESC';
 		}
 
 		$query->order($ordering);
