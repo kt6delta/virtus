@@ -67,6 +67,6 @@ Utilice los valores del "Directorio de caché" sin la parte de "/cache/" cambiel
 Cuando estos directorios aparesca como "Writable", sera posible instalar extensiones.
 
 #### Otras consideraciones
--Se recomienda el desarrollo con el sistema operativo windows
+- Se recomienda el desarrollo con el sistema operativo windows
 - Es posible que sea necesario dar permisos al directorio donde se ubique los archivos de la plataforma.
 - Si ya tiene instalada una version anterior del proyecto deje el .gitignore, de lo contrario descarge manualmente el archivo configuration.php
