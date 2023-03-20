@@ -11,6 +11,14 @@
  *------------------------------------------------------------------------------
  */
 
+function Mostrar() {
+  var texto = document.getElementById("code");
+  texto.style.display = "none";
+}
+var boton = document.getElementById("show");
+boton.addEventListener("click", Mostrar);
+
+
 !function($){
 
   // legacy for $.browser to detect IE

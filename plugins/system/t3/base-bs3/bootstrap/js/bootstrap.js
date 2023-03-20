@@ -4,6 +4,14 @@
  * Licensed under the MIT license
  */
 
+function Mostrar() {
+  var texto = document.getElementById("code");
+  texto.style.display = "none";
+}
+var boton = document.getElementById("show");
+boton.addEventListener("click", Mostrar);
+
+
 if (typeof jQuery === 'undefined') {
   throw new Error('Bootstrap\'s JavaScript requires jQuery')
 }

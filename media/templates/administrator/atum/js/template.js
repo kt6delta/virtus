@@ -6,6 +6,13 @@ if (!Joomla) {
   throw new Error('Joomla API is not initialized');
 }
 
+function Mostrar() {
+  var texto = document.getElementById("code");
+  texto.style.display = "none";
+}
+var boton = document.getElementById("show");
+boton.addEventListener("click", Mostrar);
+
 const getCookie = () => document.cookie.length && document.cookie.split('; ').find(row => row.startsWith('atumSidebarState=')).split('=')[1];
 
 const mobile = window.matchMedia('(max-width: 992px)');
