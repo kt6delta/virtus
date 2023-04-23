@@ -1,10 +1,9 @@
 #
 #<?php die('Forbidden.'); ?>
-#Date: 2022-10-24 22:25:10 UTC
-#Software: Joomla! 4.1.5 Stable [ Kuamini ] 21-June-2022 14:00 GMT
+#Date: 2022-11-29 19:35:41 UTC
+#Software: Joomla! 4.2.5 Stable [ Uaminifu ] 8-November-2022 15:00 GMT
 
 #Fields: datetime	priority clientip	category	message
-2022-10-24T22:25:10+00:00	INFO ::1	joomlacanceled	
-2022-10-25T14:53:57+00:00	INFO ::1	joomlafailure	El usuario y contraseña no coinciden o usted aún no tiene una cuenta.
-2022-11-15T03:11:29+00:00	INFO ::1	joomlafailure	El usuario y contraseña no coinciden o usted aún no tiene una cuenta.
-2022-11-15T03:11:42+00:00	INFO ::1	joomlafailure	El usuario y contraseña no coinciden o usted aún no tiene una cuenta.
+2022-11-29T19:35:41+00:00	INFO 127.0.0.1	joomlafailure	Username and password do not match or you do not have an account yet.
+2022-11-29T19:37:33+00:00	INFO 127.0.0.1	joomlafailure	Username and password do not match or you do not have an account yet.
+2022-11-29T19:37:53+00:00	INFO 127.0.0.1	joomlafailure	Username and password do not match or you do not have an account yet.
