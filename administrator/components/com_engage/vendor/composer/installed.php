@@ -3,7 +3,7 @@
         'name' => 'akeeba/engage',
         'pretty_version' => '2.x-dev',
         'version' => '2.9999999.9999999.9999999-dev',
-        'reference' => '226495e3feb8bf97fe6844c8caa5a8f36e2e627d',
+        'reference' => '0d6ae015a1e636c8ab0469b8a8e563751dc873b0',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'akeeba/engage' => array(
             'pretty_version' => '2.x-dev',
             'version' => '2.9999999.9999999.9999999-dev',
-            'reference' => '226495e3feb8bf97fe6844c8caa5a8f36e2e627d',
+            'reference' => '0d6ae015a1e636c8ab0469b8a8e563751dc873b0',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../../../',
             'aliases' => array(),

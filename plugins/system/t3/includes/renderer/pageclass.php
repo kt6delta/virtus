@@ -67,6 +67,10 @@ class JDocumentRendererPageClass extends JDocumentRenderer
 		}
 
 		$pageclass[] = 'j'.str_replace('.', '', (number_format((float)JVERSION, 1, '.', '')));
+		if(version_compare(JVERSION,'4','ge')){
+			$pageclass[] = 'j40';
+		}
+
 		$pageclass = array_unique(array_merge($pageclass, $t3tpl->getPageclass()));
 
 		JFactory::getApplication()->triggerEvent('onT3BodyClass', array(&$pageclass));

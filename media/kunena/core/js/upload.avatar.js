@@ -2,7 +2,7 @@
  * Kunena Component
  * @package Kunena.Media
  *
- * @copyright     Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright     Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link https://www.kunena.org
  **/
@@ -147,13 +147,10 @@ jQuery(function ($) {
 			data.uploaded = false;
 			data.context.append(removeButton.clone(true).data(data));
 
-			const error = null;
-			$.each(data.result.data.exceptions, function (index, error) {
-				error = $('<div class="alert alert-error"/>').text(error.message);
+			const error = $('<div class="alert alert-danger" role="alert" />').text(data.result.message);
 				data.context.find('span')
 					.append('<br>')
 					.append(error);
-			});
 		}
 	}).on('fileuploadfail', function (e, data) {
 		$.each(data.files, function (index, file) {

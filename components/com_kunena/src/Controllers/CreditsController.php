@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package         Kunena.Site
  * @subpackage      Controllers
  *
- * @copyright       Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright       Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license         https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link            https://www.kunena.org
  **/
@@ -24,15 +25,15 @@ use Kunena\Forum\Libraries\Controller\KunenaController;
  */
 class CreditsController extends KunenaController
 {
-	/**
-	 * @param   array  $config  config
-	 *
-	 * @since   Kunena 6.0
-	 *
-	 * @throws  Exception
-	 */
-	public function __construct($config = [])
-	{
-		parent::__construct($config);
-	}
+    /**
+     * @param   array  $config  config
+     *
+     * @since   Kunena 6.0
+     *
+     * @throws  Exception
+     */
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+    }
 }

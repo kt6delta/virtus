@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package         Kunena.Template.Aurelia
  * @subpackage      Layout.Widget
  *
- * @copyright       Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright       Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license         https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link            https://www.kunena.org
  **/
@@ -20,6 +21,6 @@ $description = isset($this->description) ? ' ' . $tooltip . ' data-bs-toggle="to
 $class       = ' class="badge bg-' . $this->state . '"';
 ?>
 <span <?php echo $description . $class; ?> >
-	<?php echo $label; ?>
+    <?php echo $label; ?>
 </span>
 

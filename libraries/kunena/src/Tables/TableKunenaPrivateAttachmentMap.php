@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package       Kunena.Framework
  * @subpackage    Tables
  *
- * @copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link          http://www.kunena.org
  **/
@@ -24,33 +25,33 @@ use Joomla\Database\DatabaseDriver;
  */
 class TableKunenaPrivateAttachmentMap extends KunenaTable
 {
-	/**
-	 * @var     null
-	 * @since   Kunena 6.0
-	 */
-	public $private_id = null;
+    /**
+     * @var     null
+     * @since   Kunena 6.0
+     */
+    public $private_id = null;
 
-	/**
-	 * @var     null
-	 * @since   Kunena 6.0
-	 */
-	public $attachment_id = null;
+    /**
+     * @var     null
+     * @since   Kunena 6.0
+     */
+    public $attachment_id = null;
 
-	/**
-	 * @var     boolean
-	 * @since   Kunena 6.0
-	 */
-	protected $_autoincrement = false;
+    /**
+     * @var     boolean
+     * @since   Kunena 6.0
+     */
+    protected $_autoincrement = false;
 
-	/**
-	 * TableKunenaPrivateAttachmentMap constructor.
-	 *
-	 * @param   DatabaseDriver  $db  database driver
-	 *
-	 * @since   Kunena 6.0
-	 */
-	public function __construct(DatabaseDriver $db)
-	{
-		parent::__construct('#__kunena_private_attachment_map', ['private_id', 'attachment_id'], $db);
-	}
+    /**
+     * TableKunenaPrivateAttachmentMap constructor.
+     *
+     * @param   DatabaseDriver  $db  database driver
+     *
+     * @since   Kunena 6.0
+     */
+    public function __construct(DatabaseDriver $db)
+    {
+        parent::__construct('#__kunena_private_attachment_map', ['private_id', 'attachment_id'], $db);
+    }
 }

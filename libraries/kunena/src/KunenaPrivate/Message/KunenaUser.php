@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package       Kunena.Framework
  * @subpackage    Private
  *
- * @copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link          http://www.kunena.org
  **/
@@ -28,9 +29,9 @@ use Kunena\Forum\Libraries\Database\KunenaDatabaseObject;
  */
 class KunenaUser extends KunenaDatabaseObject
 {
-	/**
-	 * @var     string
-	 * @since   Kunena 6.0
-	 */
-	protected $_table = 'KunenaPrivateUserMap';
+    /**
+     * @var     string
+     * @since   Kunena 6.0
+     */
+    protected $_table = 'KunenaPrivateUserMap';
 }

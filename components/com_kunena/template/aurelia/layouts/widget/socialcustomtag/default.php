@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package         Kunena.Template.Aurelia
  * @subpackage      Layout.Widget
  *
- * @copyright       Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright       Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license         https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link            https://www.kunena.org
  **/
@@ -18,9 +19,8 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Kunena\Forum\Libraries\Factory\KunenaFactory;
 use Kunena\Forum\Libraries\User\KunenaUserHelper;
 
-if (KunenaUserHelper::getMyself()->socialshare == 0 && KunenaUserHelper::getMyself()->exists())
-{
-	return false;
+if (KunenaUserHelper::getMyself()->socialshare == 0 && KunenaUserHelper::getMyself()->exists()) {
+    return false;
 }
 
 $this->ktemplate = KunenaFactory::getTemplate();

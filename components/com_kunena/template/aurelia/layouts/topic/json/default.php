@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package         Kunena.Template.Aurelia
  * @subpackage      Layout.Topic
  *
- * @copyright       Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright       Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license         https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link            https://www.kunena.org
  **/

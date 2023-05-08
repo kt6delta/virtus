@@ -2,8 +2,8 @@
 <!DOCTYPE extension>
 <extension type="file" version="2.5" method="upgrade">
     <name>Kunena Language - English</name>
-    <creationDate>2023-02-22</creationDate>
-    <version>6.0.9.1</version>
+    <creationDate>2023-05-05</creationDate>
+    <version>6.0.11</version>
     <author>Kunena Team</author>
     <authorEmail>kunena@kunena.org</authorEmail>
     <authorUrl>https://www.kunena.org</authorUrl>
@@ -19,6 +19,7 @@
             <filename>en-GB.com_kunena.models.ini</filename>
             <filename>en-GB.com_kunena.sys.ini</filename>
             <filename>en-GB.com_kunena.views.ini</filename>
+            <filename>en-GB.com_kunena.install.ini</filename>
         </files>
         <files folder="site" target="language/en-GB">
             <filename>en-GB.com_kunena.ini</filename>

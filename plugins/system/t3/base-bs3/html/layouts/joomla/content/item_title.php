@@ -21,8 +21,8 @@ if (empty ($item->catslug)) {
 $url = JRoute::_(ContentHelperRoute::getArticleRoute($item->slug, $item->catslug));
 $uri = JUri::getInstance();
 $prefix = $uri->toString(array('scheme', 'host', 'port'));
-	$timePublishDown = $item->publish_down != null ? $item->publish_down : '';
-	$timePublishUp = $item->publish_up != null ? $item->publish_up : '';
+$timePublishDown = $item->publish_down != null ? $item->publish_down : JFactory::getDbo()->getNullDate();
+$timePublishUp = $item->publish_up != null ? $item->publish_up : JFactory::getDbo()->getNullDate();
 ?>
 
 <header class="article-header clearfix">

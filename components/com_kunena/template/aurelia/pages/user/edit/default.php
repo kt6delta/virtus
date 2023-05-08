@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package         Kunena.Template.Aurelia
  * @subpackage      Pages.User
  *
- * @copyright       Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright       Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license         https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link            https://www.kunena.org
  **/
@@ -26,8 +27,8 @@ $document = Factory::getApplication()->getDocument();
 $document->addScriptOptions('com_kunena.avatartab', json_encode($avatartab));
 
 $this->addBreadcrumb(
-	Text::_('COM_KUNENA_EDIT'),
-	'index.php?option=com_kunena&view=user&layout=edit'
+    Text::_('COM_KUNENA_EDIT'),
+    'index.php?option=com_kunena&view=user&layout=edit'
 );
 
 echo $content;

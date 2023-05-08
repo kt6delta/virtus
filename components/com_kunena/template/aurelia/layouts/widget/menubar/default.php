@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package         Kunena.Template.Aurelia
  * @subpackage      Layout.Widget
  *
- * @copyright       Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright       Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license         https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link            https://www.kunena.org
  **/
@@ -17,7 +18,7 @@ use Joomla\CMS\Language\Text;
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg rounded border">
-	<div class="container-fluid">
+    <div class="container-fluid">
         <button class="navbar-toggler" aria-expanded="false" aria-controls="knav-offcanvas" aria-label="Toggle navigation"
                 type="button" data-bs-target="#offcanvasKunena" data-bs-toggle="offcanvas">
             <span class="navbar-toggler-icon"></span>

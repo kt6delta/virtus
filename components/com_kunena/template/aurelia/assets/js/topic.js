@@ -2,7 +2,7 @@
  * Kunena Component
  * @package Kunena.Template.Aurelia
  *
- * @copyright     Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright     Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link https://www.kunena.org
  **/
@@ -12,11 +12,10 @@ jQuery(document).ready(function ($) {
 	/* To hide or open spoiler on click */
 	$(document).on('click', '.kspoiler-expand', function (e) {
 		e.preventDefault()
-		const show = $(this.children[0]).val() === Joomla.getOptions('com_kunena.expand');
-		$(this.children[0]).val(show ? Joomla.getOptions('com_kunena.hide') : Joomla.getOptions('com_kunena.expand'));
+		const show = $(this.children[0]).val() === Joomla.Text._('COM_KUNENA_LIB_BBCODE_SPOILER_EXPAND');
+		$(this.children[0]).val(show ? Joomla.Text._('COM_KUNENA_LIB_BBCODE_SPOILER_HIDE') : Joomla.Text._('COM_KUNENA_LIB_BBCODE_SPOILER_EXPAND'));
 		$(this).parent().children('.kspoiler-wrapper').toggle()
 	});
-
 
 	/* To allow to close or open the quick-reply modal box */
 	$('.openmodal').click(function () {
@@ -63,6 +62,7 @@ jQuery(document).ready(function ($) {
 	/* On moderate page display subject or field to enter manually the topic ID */
 	$('#kmod_topics').change(function () {
 		const id_item_selected = $(this).val();
+
 		if (id_item_selected === 0) {
 			$('#kmod_subject').hide();
 		}
@@ -70,7 +70,7 @@ jQuery(document).ready(function ($) {
 			$('#kmod_subject').show();
 		}
 
-		if (id_item_selected === -1) {
+		if (id_item_selected == -1) {
 			$('#kmod_targetid').show();
 		}
 		else {

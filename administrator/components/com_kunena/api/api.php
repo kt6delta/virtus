@@ -1,21 +1,22 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package        Kunena.Framework
  *
- * @copyright      Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright      Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license        https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link           https://www.kunena.org
  **/
+
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Uri\Uri;
 use Kunena\Forum\Libraries\Config\KunenaConfig;
 
-if (defined('KUNENA_LOADED'))
-{
-	return;
+if (defined('KUNENA_LOADED')) {
+    return;
 }
 
 /**

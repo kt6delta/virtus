@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AkeebaEngage
- * @copyright Copyright (c)2020-2022 Nicholas K. Dionysopoulos / Akeeba Ltd
+ * @copyright Copyright (c)2020-2023 Nicholas K. Dionysopoulos / Akeeba Ltd
  * @license   GNU General Public License version 3, or later
  */
 
@@ -348,13 +348,6 @@ class CommentTable extends AbstractTable
 			]
 		);
 		$this->getDispatcher()->dispatch('onTableBeforeStore', $event);
-
-		$currentAssetId = 0;
-
-		if (!empty($this->asset_id))
-		{
-			$currentAssetId = $this->asset_id;
-		}
 
 		// We have to unset typeAlias since updateObject / insertObject will try to insert / update all public variables...
 		$typeAlias = $this->typeAlias;

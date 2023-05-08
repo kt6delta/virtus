@@ -2,8 +2,8 @@
 <!DOCTYPE extension>
 <extension version="2.5" type="plugin" group="kunena" method="upgrade">
     <name>plg_kunena_easysocial</name>
-    <version>6.0.4</version>
-    <creationDate>2022-10-30</creationDate>
+    <version>6.0.11</version>
+    <creationDate>2023-05-05</creationDate>
     <author>StackIdeas</author>
     <authorEmail>support@stackideas.com</authorEmail>
     <authorUrl>http://stackideas.com</authorUrl>
@@ -11,7 +11,7 @@
     <license>GNU/GPLv3 or later</license>
     <description>PLG_KUNENA_EASYSOCIAL_DESCRIPTION</description>
     <namespace>Kunena\Forum\Plugin\Kunena\Easysocial</namespace>
-    <changelogurl>https://update.kunena.org/changelog/6.0.4.xml</changelogurl>
+    <changelogurl>https://update.kunena.org/changelog/6.0.11.xml</changelogurl>
     <files>
         <folder>alerts</folder>
         <folder>badges</folder>

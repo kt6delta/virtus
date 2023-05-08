@@ -5,12 +5,6 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  * @since       4.0.0
  */
-function Mostrar() {
-  var texto = document.getElementById("code");
-  texto.style.display = "none";
-}
-var boton = document.getElementById("show");
-boton.addEventListener("click", Mostrar);
 
 Joomla = window.Joomla || {};
 

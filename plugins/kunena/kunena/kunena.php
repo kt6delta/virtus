@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Plugin
  *
  * @package         Kunena.Plugins
  * @subpackage      Kunena
  *
- * @copyright       Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright       Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license         https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link            https://www.kunena.org
  **/
@@ -21,37 +22,35 @@ use Joomla\CMS\Plugin\CMSPlugin;
  */
 class PlgKunenaKunena extends CMSPlugin
 {
-	/**
-	 * @return  false|KunenaAvatarKunena
-	 *
-	 * @since   Kunena 6.0
-	 */
-	public function onKunenaGetAvatar()
-	{
-		if (!$this->params->get('avatar', 1))
-		{
-			return false;
-		}
+    /**
+     * @return  false|KunenaAvatarKunena
+     *
+     * @since   Kunena 6.0
+     */
+    public function onKunenaGetAvatar()
+    {
+        if (!$this->params->get('avatar', 1)) {
+            return false;
+        }
 
-		require_once __DIR__ . "/avatar.php";
+        require_once __DIR__ . "/avatar.php";
 
-		return new KunenaAvatarKunena($this->params);
-	}
+        return new KunenaAvatarKunena($this->params);
+    }
 
-	/**
-	 * @return  false|KunenaProfileKunena
-	 *
-	 * @since   Kunena 6.0
-	 */
-	public function onKunenaGetProfile()
-	{
-		if (!$this->params->get('profile', 1))
-		{
-			return false;
-		}
+    /**
+     * @return  false|KunenaProfileKunena
+     *
+     * @since   Kunena 6.0
+     */
+    public function onKunenaGetProfile()
+    {
+        if (!$this->params->get('profile', 1)) {
+            return false;
+        }
 
-		require_once __DIR__ . "/profile.php";
+        require_once __DIR__ . "/profile.php";
 
-		return new KunenaProfileKunena($this->params);
-	}
+        return new KunenaProfileKunena($this->params);
+    }
 }

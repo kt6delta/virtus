@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package         Kunena.Site
  * @subpackage      Controller.Topic
  *
- * @copyright       Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright       Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license         https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link            https://www.kunena.org
  **/
@@ -25,29 +26,29 @@ use Kunena\Forum\Libraries\Forum\Topic\KunenaTopic;
  */
 class TopicItemRatingDisplay extends KunenaControllerDisplay
 {
-	/**
-	 * @var     KunenaTopic
-	 * @since   Kunena 6.0
-	 */
-	public $topic;
+    /**
+     * @var     KunenaTopic
+     * @since   Kunena 6.0
+     */
+    public $topic;
 
-	/**
-	 * @var     string
-	 * @since   Kunena 6.0
-	 */
-	protected $name = 'Topic/Item/Rating';
+    /**
+     * @var     string
+     * @since   Kunena 6.0
+     */
+    protected $name = 'Topic/Item/Rating';
 
-	/**
-	 * Prepare topic actions display.
-	 *
-	 * @return  void
-	 *
-	 * @since   Kunena 6.0
-	 *
-	 * @throws  Exception
-	 */
-	protected function before()
-	{
-		parent::before();
-	}
+    /**
+     * Prepare topic actions display.
+     *
+     * @return  void
+     *
+     * @since   Kunena 6.0
+     *
+     * @throws  Exception
+     */
+    protected function before()
+    {
+        parent::before();
+    }
 }

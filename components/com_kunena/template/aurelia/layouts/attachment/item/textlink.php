@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package         Kunena.Template.Aurelia
  * @subpackage      BBCode
  *
- * @copyright       Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright       Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license         https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link            https://www.kunena.org
  **/
@@ -21,9 +22,8 @@ use Kunena\Forum\Libraries\Icons\KunenaIcons;
 
 $attachment = $this->attachment;
 
-if (!$attachment->getPath())
-{
-	return;
+if (!$attachment->getPath()) {
+    return;
 }
 
 $config = KunenaConfig::getInstance();
@@ -38,5 +38,5 @@ $attributesLink = $attachment->isImage() && $config->lightbox ? ' data-fancybox=
 " data-original-title="<?php echo $attachment->getShortName(); ?>"
    href="<?php echo $attachment->getUrl(false, false, true); ?>"
    title="<?php echo KunenaAttachmentHelper::shortenFileName($attachment->getFilename(), (int) $config->attachStart, (int) $config->attachEnd); ?>" <?php echo $attributesLink; ?>>
-	<?php echo KunenaIcons::info(); ?>
+    <?php echo KunenaIcons::info(); ?>
 </a>

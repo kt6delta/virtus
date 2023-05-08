@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package         Kunena.Site
  * @subpackage      Controller.Category
  *
- * @copyright       Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright       Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license         https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link            https://www.kunena.org
  **/
@@ -24,28 +25,28 @@ use Kunena\Forum\Libraries\Forum\Category\KunenaCategoryHelper;
  */
 class CategoryDescriptionDisplay extends KunenaControllerDisplay
 {
-	/**
-	 * @var     string
-	 * @since   Kunena 6.0
-	 */
-	protected $name = 'Category/Description';
+    /**
+     * @var     string
+     * @since   Kunena 6.0
+     */
+    protected $name = 'Category/Description';
 
-	/**
-	 * Prepare category display.
-	 *
-	 * @return  void
-	 *
-	 * @since   Kunena 6.0
-	 *
-	 * @throws  null
-	 */
-	protected function before()
-	{
-		parent::before();
+    /**
+     * Prepare category display.
+     *
+     * @return  void
+     *
+     * @since   Kunena 6.0
+     *
+     * @throws  null
+     */
+    protected function before()
+    {
+        parent::before();
 
-		$catid = $this->input->getInt('catid');
+        $catid = $this->input->getInt('catid');
 
-		$category = KunenaCategoryHelper::get($catid);
-		$category->tryAuthorise();
-	}
+        $category = KunenaCategoryHelper::get($catid);
+        $category->tryAuthorise();
+    }
 }

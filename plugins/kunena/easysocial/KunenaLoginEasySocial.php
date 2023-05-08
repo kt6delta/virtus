@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Plugin
  *
  * @package         Kunena.Plugins
  * @subpackage      Easysocial
  *
- * @copyright      Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright      Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @copyright      Copyright (C) 2010 - 2014 Stack Ideas Sdn Bhd. All rights reserved.
  * @license        GNU/GPL, see LICENSE.php
  * EasySocial is free software. This version may have been modified pursuant
@@ -26,58 +27,57 @@ use Joomla\CMS\Component\ComponentHelper;
  */
 class KunenaLoginEasySocial
 {
-	/**
-	 * @var     null
-	 * @since   Kunena 6.0
-	 */
-	protected $params = null;
+    /**
+     * @var     null
+     * @since   Kunena 6.0
+     */
+    protected $params = null;
 
-	/**
-	 * KunenaLoginEasySocial constructor.
-	 *
-	 * @param   object  $params  params
-	 *
-	 * @since   Kunena 5.0
-	 */
-	public function __construct(object $params)
-	{
-		$this->params = $params;
-	}
+    /**
+     * KunenaLoginEasySocial constructor.
+     *
+     * @param   object  $params  params
+     *
+     * @since   Kunena 5.0
+     */
+    public function __construct(object $params)
+    {
+        $this->params = $params;
+    }
 
-	/**
-	 * @return  mixed
-	 *
-	 * @since   Kunena 5.0
-	 */
-	public function getLoginURL()
-	{
-		return FRoute::dashboard();
-	}
+    /**
+     * @return  mixed
+     *
+     * @since   Kunena 5.0
+     */
+    public function getLoginURL()
+    {
+        return FRoute::dashboard();
+    }
 
-	/**
-	 * @return  mixed
-	 *
-	 * @since   Kunena 5.0
-	 */
-	public function getLogoutURL()
-	{
-		return FRoute::dashboard();
-	}
+    /**
+     * @return  mixed
+     *
+     * @since   Kunena 5.0
+     */
+    public function getLogoutURL()
+    {
+        return FRoute::dashboard();
+    }
 
-	/**
-	 * @return  null
-	 *
-	 * @since   Kunena 5.0
-	 */
-	public function getRegistrationURL()
-	{
-		$usersConfig = ComponentHelper::getParams('com_users');
+    /**
+     * @return  null
+     *
+     * @since   Kunena 5.0
+     */
+    public function getRegistrationURL()
+    {
+        $usersConfig = ComponentHelper::getParams('com_users');
 
-		if ($usersConfig->get('allowUserRegistration'))
-		{
-			return FRoute::registration();
-		}
+        if ($usersConfig->get('allowUserRegistration')) {
+            return FRoute::registration();
+        }
 
-		return;
-	}
+        return;
+    }
 }

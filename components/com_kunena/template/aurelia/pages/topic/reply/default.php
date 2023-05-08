@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package         Kunena.Template.Aurelia
  * @subpackage      Pages.Topic
  *
- * @copyright       Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright       Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license         https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link            https://www.kunena.org
  **/
@@ -23,22 +24,21 @@ $content = $this->execute('Topic/Form/Reply');
 $parents   = KunenaCategoryHelper::getParents($content->category->id);
 $parents[] = $content->category;
 
-foreach ($parents as $parent)
-{
-	$this->addBreadcrumb(
-		$parent->displayField('name'),
-		$parent->getUri()
-	);
+foreach ($parents as $parent) {
+    $this->addBreadcrumb(
+        $parent->displayField('name'),
+        $parent->getUri()
+    );
 }
 
 $this->addBreadcrumb(
-	$content->topic->subject,
-	$content->topic->getUri()
+    $content->topic->subject,
+    $content->topic->getUri()
 );
 
 $this->addBreadcrumb(
-	Text::_('COM_KUNENA_BUTTON_MESSAGE_REPLY'),
-	null
+    Text::_('COM_KUNENA_BUTTON_MESSAGE_REPLY'),
+    null
 );
 
 echo $content;

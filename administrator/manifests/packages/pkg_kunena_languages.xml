@@ -3,9 +3,9 @@
 <extension type="package" version="4.0" method="upgrade">
     <name>Kunena Language Pack</name>
     <packagename>kunena_languages</packagename>
-    <version>6.0.9.1</version>
-    <creationDate>2023-02-22</creationDate>
-    <build>6.0.9.1</build>
+    <version>6.0.11</version>
+    <creationDate>2023-05-05</creationDate>
+    <build>6.0.11</build>
     <author>Kunena Team</author>
     <authorEmail>kunena@kunena.org</authorEmail>
     <authorUrl>https://www.kunena.org</authorUrl>

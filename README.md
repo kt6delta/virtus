@@ -31,9 +31,9 @@ Si se presenta el error `collation desconocida: 'utf8mb4_0900_ai_ci'` cuando se 
 Para que la plataforma funciones en el nuevo ambiente es necesario cambiar algunos datos en el archivo configuration.php. Se debe editar/cambiar lo siguiente:
 ```
 var $host = 'localhost'; // usually "localhost". If it's different for your server then your hosting provider should be able to tell you that.
-var $user = 'the_db_username';//por defecto se usa root
-var $db = 'the_databasename';//por defecto el nombre es virtus_db
-var $password = 'the_db_password';//por defecto viene vacio
+var $user = 'the_db_username';
+var $db = 'the_databasename';
+var $password = 'the_db_password';
 var $live_site = ''; // is usually empty.
 var $cookie_domain = ''; // Should be empty.
 ```
@@ -67,6 +67,4 @@ Utilice los valores del "Directorio de caché" sin la parte de "/cache/" cambiel
 Cuando estos directorios aparesca como "Writable", sera posible instalar extensiones.
 
 #### Otras consideraciones
-- Se recomienda el desarrollo con el sistema operativo windows
 - Es posible que sea necesario dar permisos al directorio donde se ubique los archivos de la plataforma.
-- Si ya tiene instalada una version anterior del proyecto deje el .gitignore, de lo contrario descarge manualmente el archivo configuration.php

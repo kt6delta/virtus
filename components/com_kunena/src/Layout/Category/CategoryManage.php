@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package         Kunena.Site
  * @subpackage      Layout.Category.Manage
  *
- * @copyright       Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright       Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license         https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link            https://www.kunena.org
  **/
@@ -24,32 +25,32 @@ use Kunena\Forum\Libraries\Pagination\KunenaPagination;
  */
 class CategoryManage extends KunenaLayout
 {
-	/**
-	 * @var     integer
-	 * @since   Kunena 6.0
-	 */
-	public $total;
+    /**
+     * @var     integer
+     * @since   Kunena 6.0
+     */
+    public $total;
 
-	/**
-	 * @var     object
-	 * @since   Kunena 6.0
-	 */
-	public $state;
+    /**
+     * @var     object
+     * @since   Kunena 6.0
+     */
+    public $state;
 
-	/**
-	 * Method to return a KunenaPagination object
-	 *
-	 * @param   integer  $maxpages  Maximum that are allowed for pagination
-	 *
-	 * @return  KunenaPagination
-	 *
-	 * @since   Kunena 5.1
-	 */
-	public function getPaginationObject($maxpages)
-	{
-		$pagination = new KunenaPagination($this->total, $this->state->get('list.start'), $this->state->get('list.limit'));
-		$pagination->setDisplayedPages($maxpages);
+    /**
+     * Method to return a KunenaPagination object
+     *
+     * @param   integer  $maxpages  Maximum that are allowed for pagination
+     *
+     * @return  KunenaPagination
+     *
+     * @since   Kunena 5.1
+     */
+    public function getPaginationObject($maxpages)
+    {
+        $pagination = new KunenaPagination($this->total, $this->state->get('list.start'), $this->state->get('list.limit'));
+        $pagination->setDisplayedPages($maxpages);
 
-		return $pagination;
-	}
+        return $pagination;
+    }
 }

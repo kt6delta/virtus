@@ -335,7 +335,8 @@ joomla-field-custom.field-custom-wrapper {
 
 // Modal
 // -------------------
-.j40 {
+.j40,
+.j42 {
   .joomla-modal.show {
     background-color: rgba(0,0,0,0.5);
     opacity: 1;
@@ -460,8 +461,18 @@ joomla-field-custom.field-custom-wrapper {
     border-bottom: 1px solid #ddd;
     padding-bottom: 12px;
 
+    .btn-toolbar {
+      display: flex;
+      gap: @t3-global-margin / 2;
+      margin: 0;
+
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
+
     joomla-toolbar-button {
-      margin-left: @t3-global-margin / 2;
     }
   }
 

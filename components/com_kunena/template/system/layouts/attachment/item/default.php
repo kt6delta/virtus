@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package         Kunena.Template.Aurelia
  * @subpackage      BBCode
  *
- * @copyright       Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright       Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license         https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link            https://www.kunena.org
  **/
@@ -16,19 +17,12 @@ namespace Kunena\Forum\Site;
 
 $attachment = $this->attachment;
 
-if ($attachment->isImage())
-{
-	echo $this->render('image');
-}
-elseif ($attachment->isAudio())
-{
-	echo $this->render('audio');
-}
-elseif ($attachment->isVideo())
-{
-	echo $this->render('video');
-}
-else
-{
-	echo $this->render('general');
+if ($attachment->isImage()) {
+    echo $this->render('image');
+} elseif ($attachment->isAudio()) {
+    echo $this->render('audio');
+} elseif ($attachment->isVideo()) {
+    echo $this->render('video');
+} else {
+    echo $this->render('general');
 }

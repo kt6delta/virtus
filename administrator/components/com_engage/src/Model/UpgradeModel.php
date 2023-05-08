@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AkeebaEngage
- * @copyright Copyright (c)2020-2022 Nicholas K. Dionysopoulos / Akeeba Ltd
+ * @copyright Copyright (c)2020-2023 Nicholas K. Dionysopoulos / Akeeba Ltd
  * @license   GNU General Public License version 3, or later
  */
 
@@ -10,24 +10,25 @@ namespace Akeeba\Component\Engage\Administrator\Model;
 defined('_JEXEC') or die;
 
 use DirectoryIterator;
-use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Filesystem\Folder;
 use Joomla\CMS\Installer\Adapter\PackageAdapter;
 use Joomla\CMS\Installer\Installer;
-use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\MVC\Model\BaseModel;
 use Joomla\CMS\Table\Extension;
 use Joomla\CMS\User\UserHelper;
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseAwareInterface;
+use Joomla\Database\DatabaseAwareTrait;
 use Joomla\Database\ParameterType;
 use RuntimeException;
 use SimpleXMLElement;
 use Throwable;
 
 #[\AllowDynamicProperties]
-class UpgradeModel extends BaseDatabaseModel
+class UpgradeModel extends BaseModel implements DatabaseAwareInterface
 {
+	use DatabaseAwareTrait;
+
 	/** @var string[] Included extensions to automatically publish on NEW INSTALLATION OR UPGRADE */
 	private const ALWAYS_ENABLE_EXTENSIONS = [
 	];

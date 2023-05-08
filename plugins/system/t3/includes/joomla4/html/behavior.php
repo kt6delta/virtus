@@ -190,8 +190,12 @@ abstract class T3HtmlBehavior extends JHtmlBehavior
 
 		// Include jQuery
 		JHtml::_('jquery.framework');
-
-		JHtml::_('script', 'system/caption.js', array('version' => 'auto', 'relative' => true));
+		
+		if (!is_file(JPATH_ROOT . 'media/system/js/caption.js')){
+			return;
+		}
+		
+		JHtml::_('script', 'system/js/caption.js', array('version' => 'auto', 'relative' => true));
 
 		// Attach caption to document
 		JFactory::getDocument()->addScriptDeclaration(

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AkeebaEngage
- * @copyright Copyright (c)2020-2022 Nicholas K. Dionysopoulos / Akeeba Ltd
+ * @copyright Copyright (c)2020-2023 Nicholas K. Dionysopoulos / Akeeba Ltd
  * @license   GNU General Public License version 3, or later
  */
 
@@ -458,7 +458,7 @@ class CommentsModel extends ListModel
 				$fsValue = '%' . substr($fltSearch, 3) . '%';
 
 				$query->where($db->quoteName('c.ip') . ' LIKE :filter_search')
-					->bind(':filter_search', $fsValue, ParameterType::INTEGER);
+					->bind(':filter_search', $fsValue, ParameterType::STRING);
 			}
 			elseif (substr($fltSearch, 0, 5) === 'user:')
 			{

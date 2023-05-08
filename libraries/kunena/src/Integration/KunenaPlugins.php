@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package       Kunena.Framework
  * @subpackage    Integration
  *
- * @copyright     Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright     Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license       https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link          https://www.kunena.org
  **/
@@ -26,34 +27,31 @@ use Kunena\Forum\Libraries\Error\KunenaError;
  */
 class KunenaPlugins
 {
-	/**
-	 * Returns total kunena plugins.
-	 *
-	 * @return  integer Codename.
-	 *
-	 * @since   Kunena 6.0
-	 *
-	 * @throws  Exception
-	 */
-	public static function getTotalPlugins()
-	{
-		$db    = Factory::getContainer()->get('DatabaseDriver');
-		$query = $db->getQuery(true);
-		$query->select('COUNT(*)')
-			->from($db->quoteName('#__extensions'))
-			->where($db->quoteName('type') . ' = ' . $db->quote('plugin'))
-			->where($db->quoteName('folder') . ' = ' . $db->quote('kunena'));
-		$db->setQuery($query);
+    /**
+     * Returns total kunena plugins.
+     *
+     * @return  integer Codename.
+     *
+     * @since   Kunena 6.0
+     *
+     * @throws  Exception
+     */
+    public static function getTotalPlugins()
+    {
+        $db    = Factory::getContainer()->get('DatabaseDriver');
+        $query = $db->getQuery(true);
+        $query->select('COUNT(*)')
+            ->from($db->quoteName('#__extensions'))
+            ->where($db->quoteName('type') . ' = ' . $db->quote('plugin'))
+            ->where($db->quoteName('folder') . ' = ' . $db->quote('kunena'));
+        $db->setQuery($query);
 
-		try
-		{
-			$total = $db->setQuery($query)->loadResult();
-		}
-		catch (ExecutionFailureException $e)
-		{
-			KunenaError::displayDatabaseError($e);
-		}
+        try {
+            $total = $db->setQuery($query)->loadResult();
+        } catch (ExecutionFailureException $e) {
+            KunenaError::displayDatabaseError($e);
+        }
 
-		return (int) $total;
-	}
+        return (int) $total;
+    }
 }

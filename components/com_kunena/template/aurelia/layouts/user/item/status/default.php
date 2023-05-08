@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package         Kunena.Template.Aurelia
  * @subpackage      Layout.User
  *
- * @copyright       Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright       Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license         https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link            https://www.kunena.org
  **/
@@ -22,39 +23,37 @@ $status      = $user->getStatus();
 $status_text = $user->getStatusText();
 $link        = $user->getURL();
 
-switch ($status)
-{
-	case 0:
-		$label = Text::_("COM_KUNENA_ONLINE");
-		$state = "success";
-		break;
-	case 1:
-		$label = Text::_("COM_KUNENA_AWAY");
-		$state = "warning";
-		break;
-	case 2:
-		$label = Text::_("COM_KUNENA_BUSY");
-		$state = "important";
-		break;
-	case 3:
-		$label = Text::_("COM_KUNENA_INVISIBLE");
-		$state = "default";
-		break;
-	default:
-		$label = Text::_("COM_KUNENA_OFFLINE");
-		$state = "default";
-		break;
+switch ($status) {
+    case 0:
+        $label = Text::_("COM_KUNENA_ONLINE");
+        $state = "success";
+        break;
+    case 1:
+        $label = Text::_("COM_KUNENA_AWAY");
+        $state = "warning";
+        break;
+    case 2:
+        $label = Text::_("COM_KUNENA_BUSY");
+        $state = "important";
+        break;
+    case 3:
+        $label = Text::_("COM_KUNENA_INVISIBLE");
+        $state = "light text-dark";
+        break;
+    default:
+        $label = Text::_("COM_KUNENA_OFFLINE");
+        $state = "secondary";
+        break;
 }
 
-if (!$user->showOnline)
-{
-	$label = Text::_("COM_KUNENA_OFFLINE");
-	$state = "default";
+if (!$user->showOnline) {
+    $label = Text::_("COM_KUNENA_OFFLINE");
+    $state = "secondary";
 }
 
 echo $this->subLayout('Widget/Label')
-	->set('label', $label)
-	->set('description', $status_text)
-	->set('state', $state)
-	->set('link', $link)
-	->setLayout('link');
+    ->set('label', $label)
+    ->set('description', $status_text)
+    ->set('state', $state)
+    ->set('link', $link)
+    ->setLayout('link');

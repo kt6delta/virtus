@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package         Kunena.Template.Aurelia
  * @subpackage      Layout.BBCode
  *
- * @copyright       Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright       Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license         https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link            https://www.kunena.org
  **/
@@ -21,10 +22,10 @@ use Joomla\CMS\HTML\HTMLHelper;
 
 // Display email address (cloak it).
 echo HTMLHelper::_(
-	'email.cloak',
-	$this->escape($this->email),
-	$this->mailto,
-	$this->escape($this->text),
-	$this->escape($this->email),
-	$this->mailto
+    'email.cloak',
+    $this->escape($this->email),
+    $this->isLink,
+    $this->escape($this->text),
+    $this->escape($this->email),
+    $this->mailto
 );

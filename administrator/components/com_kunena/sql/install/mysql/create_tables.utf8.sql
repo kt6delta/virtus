@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `#__kunena_attachments`
     `hash`          char(32)     NULL,
     `size`          int(11)      NULL,
     `folder`        varchar(191) NOT NULL,
-    `filetype`      varchar(20)  NOT NULL,
+    `filetype`      varchar(100)  NOT NULL,
     `filename`      varchar(190) NOT NULL,
     `filename_real` varchar(190) NOT NULL default ''
         COMMENT 'Filename for downloads',
@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `#__kunena_polls`
     `id`             int(11)      NOT NULL auto_increment,
     `title`          varchar(150) NOT NULL,
     `threadid`       int(11)      NOT NULL,
-    `polltimetolive` datetime     NULL DEFAULT NULL,
+    `polltimetolive` datetime DEFAULT '1000-01-01 00:00:00',
     PRIMARY KEY (id),
     KEY `threadid` (threadid)
 )
@@ -554,12 +554,3 @@ CREATE TABLE IF NOT EXISTS `#__kunena_version`
     DEFAULT CHARSET = utf8mb4
     DEFAULT COLLATE = utf8mb4_unicode_ci;
 
-INSERT INTO `#__mail_templates` (`template_id`, `extension`, `language`, `subject`, `body`, `htmlbody`, `attachments`, `params`)
-VALUES ('com_kunena.reply', 'com_kunena', '', 'COM_KUNENA_SENDMAIL_REPLY_SUBJECT', 'COM_KUNENA_SENDMAIL_BODY', '', '',
-        '{"tags":["mail", "subject", "message", "messageUrl", "once"]}');
-INSERT INTO `#__mail_templates` (`template_id`, `extension`, `language`, `subject`, `body`, `htmlbody`, `attachments`, `params`)
-VALUES ('com_kunena.replymoderator', 'com_kunena', '', 'COM_KUNENA_SENDMAIL_REPLYMODERATOR_SUBJECT', 'COM_KUNENA_SENDMAIL_BODY', '', '',
-        '{"tags":["mail", "subject", "message", "messageUrl", "once"]}');
-INSERT INTO `#__mail_templates` (`template_id`, `extension`, `language`, `subject`, `body`, `htmlbody`, `attachments`, `params`)
-VALUES ('com_kunena.report', 'com_kunena', '', 'COM_KUNENA_SENDMAIL_REPORT_SUBJECT', 'COM_KUNENA_SENDMAIL_BODY_REPORTMODERATOR', '', '',
-        '{"tags":["mail", "subject", "message", "messageUrl", "once"]}');

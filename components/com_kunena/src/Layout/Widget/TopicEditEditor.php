@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Kunena Component
  *
  * @package         Kunena.Site
  * @subpackage      Layout.widget
  *
- * @copyright       Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright       Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license         https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link            https://www.kunena.org
  **/
@@ -24,9 +25,9 @@ use Kunena\Forum\Libraries\Template\KunenaTemplate;
  */
 class TopicEditEditor extends KunenaLayout
 {
-	/**
-	 * @var     KunenaTemplate
-	 * @since   Kunena 6.0
-	 */
-	public $ktemplate;
+    /**
+     * @var     KunenaTemplate
+     * @since   Kunena 6.0
+     */
+    public $ktemplate;
 }

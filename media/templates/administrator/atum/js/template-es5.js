@@ -9,13 +9,6 @@
     throw new Error('Joomla API is not initialized');
   }
 
-  function Mostrar() {
-  var texto = document.getElementById("code");
-  texto.style.display = "none";
-}
-var boton = document.getElementById("show");
-boton.addEventListener("click", Mostrar);
-  
   var getCookie = function getCookie() {
     return document.cookie.length && document.cookie.split('; ').find(function (row) {
       return row.startsWith('atumSidebarState=');

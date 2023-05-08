@@ -2,7 +2,7 @@
  * Kunena Component
  * @package Kunena.Template.Aurelia
  *
- * @copyright     Copyright (C) 2008 - 2022 Kunena Team. All rights reserved.
+ * @copyright     Copyright (C) 2008 - 2023 Kunena Team. All rights reserved.
  * @license https://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link https://www.kunena.org
  **/
@@ -12,7 +12,7 @@ jQuery(document).ready(function ($) {
     const editor = $('#editor');
 
     if(Joomla.getOptions('com_kunena.pollcategoriesid') != undefined){
-		const pollcategoriesid = jQuery.parseJSON(Joomla.getOptions('com_kunena.pollcategoriesid'));
+		var pollcategoriesid = jQuery.parseJSON(Joomla.getOptions('com_kunena.pollcategoriesid'));
     }
 
     const pollexist = $('#poll_exist_edit');
@@ -250,7 +250,7 @@ jQuery(document).ready(function ($) {
                         if (data.length > 1) {
                             $('#modal_confirm_template_category').modal('show');
                         } else {
-                            CKEDITOR.instances.message.setData(data);
+                            CKEDITOR.instances.message.setData(data.data);
                         }
                     }
 
